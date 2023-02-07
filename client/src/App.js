@@ -13,7 +13,7 @@ import {
 import Dashboard from './components/Dashboard';
 import Events from './pages/Events';
 import Teams from './pages/Teams';
-//import Players from './pages/Players';
+import Players from './pages/Players';
 import Schedule from './pages/Schedule.jsx';
 import Submission from './pages/Submission.jsx';
 import Logout from './components/Logout';
@@ -68,7 +68,7 @@ function App() {
               <Route path='/Sidebar' element={<Sidebar/>} /> 
               <Route path='/Events' element={<Events/>} />
               <Route path='/Teams' element={<Teams/>} />
-             
+              <Route path='/Players' element={<Players/>} />
               <Route path='/Schedule' element={<Schedule/>} />
               <Route path='/Submission' element={<Submission/>} /> 
               <Route path='/Reports' element={<Reports/>} /> 

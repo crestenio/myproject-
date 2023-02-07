@@ -18,7 +18,7 @@ import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 800,
   },
   fab: {
     margin: '10px',
@@ -98,12 +98,7 @@ export default function SubmissionTable() {
                 >
                  <DeleteIcon />
                 </Fab>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <Button style={{
+                <Button style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginBottom: '22px',
@@ -111,11 +106,17 @@ export default function SubmissionTable() {
                         marginLeft: '8px'
                     }}
         
-        color="primary"
-        onClick={() => handleViewPlayers(data.id)}
-      >
-        View Players
-      </Button>
+                        color="primary"
+                        onClick={() => handleViewPlayers(data.id)}
+                      >
+                        View Players
+                      </Button>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      
     </TableContainer>
     </div>
     </>

@@ -16,7 +16,7 @@ import AddScheduleModal from './AddSchedule';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 650,
+    minWidth: 800,
   },
   fab: {
     margin: '10px',

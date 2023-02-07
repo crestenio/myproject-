@@ -92,6 +92,15 @@ app.get('/players/:player_id', (req, res)=>{
     client.end;
 })
 
+app.get('/team/players/:team_id', (req, res)=>{
+    client.query(`Select * from players where team_id=${req.params.team_id}`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
 app.get('/schedule/:schedule_id', (req, res)=>{
     client.query(`Select * from schedule where schedule_id=${req.params.schedule_id}`, (err, result)=>{
         if(!err){

@@ -37,11 +37,11 @@ const Signup = ({setAuth}) => {
         e.preventDefault()
         try {
             //making a body object from the values of username and password
-            const body = { username, password }
+            const body = { firstname, lastname, username, password }
 
             //fetch api for POST method
             const response = await fetch(
-                "http://localhost:8000/Login",
+                "http://localhost:8000/Signup",
                 {
                     method: "POST",
                     headers: {

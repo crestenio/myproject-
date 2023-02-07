@@ -22,7 +22,7 @@ import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 900,
+    minWidth: 800,
   },
 });
 
@@ -52,22 +52,35 @@ export default function BasketballSystemTable() {
   };
   const handleViewPlayers = (id) => {
     console.log(`View players for Team ID ${id}`);
+    localStorage.setItem("team_id", id);
   };
 
 
   return (
     <>
-    <Sidebar/>
-      
+    
+      <Sidebar/>
+    
     <div>
-      
-      <h1>Basketball System Team Information</h1>
-      <TextField
-        label="Search"
-        value={searchText}
-        onChange={e => setSearchText(e.target.value)}
-      />
-      <AddTeamModal/>
+      <TableContainer component={Paper} style={{
+                        backgroundColor: '#fff',
+                        color: '#000',
+                        marginBottom: '14px',
+                        marginTop: '18px'
+                    }}>
+        <h1>Basketball System Team Information</h1>
+        <TextField style={{
+                        width: '80%',
+                        color: '#eb8045',
+                        paddingLeft: '8px'
+                       
+                    }}
+          label="Search"
+          value={searchText}
+          onChange={e => setSearchText(e.target.value)}
+        />
+        <AddTeamModal/>
+      </TableContainer>
                   
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label='teams table'>
@@ -104,7 +117,10 @@ export default function BasketballSystemTable() {
                     color="primary"
                     onClick={() => handleViewPlayers(team.id)}
                   >
-                    View Players
+                    <a href="players" style={{
+                        backgroundColor: '#eb8045',
+                        color: '#fff',
+                    }}>View Players</a>
               </Button>
                 </TableCell>
               </TableRow>

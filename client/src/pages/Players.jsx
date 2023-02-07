@@ -1,84 +1,173 @@
-import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import AddPlayers from "./AddPlayers";
+import React, { useState, useEffect } from 'react';
+import Sidebar from '../components/Sidebar';
+import AddPlayersModal from '../pages/AddPlayers';
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Fab from '@material-ui/core/Fab';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
-const Players = () => {
-  const [player, setPlayer] = useState([{ id: 1, firstname: "", lastname: "", middlename: "", gender: "",Age: "", birthday: "", address: "", phone: "" }]);
-  const [showForm, setShowForm] = useState(false);
+
+const useStyles = makeStyles({
+  table: {
+    minWidth: 100,
+  },
+  fab: {
+    margin: '10px',
+  },
+});
+
+// const data = [
+//   {
+//     id: 1,
+//     firstName: 'Juan',
+//     lastName: 'Doe',
+//     middleName: 'A',
+//     gender: 'Male',
+//     age: 30,
+//     address: 'Manila',
+//     phone: '09209987654'
+
+//   },
+//   {
+//     id: 2,
+//     firstName: 'Carl',
+//     lastName: 'Aquino',
+//     middleName: 'T',
+//     gender: 'Male',
+//     age: 30,
+//     address: 'Navotas',
+//     phone: '09209989087'
+//   },
+//   {
+//     id: 3,
+//     firstName: 'Pedro',
+//     lastName: 'Penduko',
+//     middleName: 'C.',
+//     gender: 'Male',
+//     age: 25,
+//     address: 'Mandaluyong',
+//     phone: '09209987653',
+//   }
   
-  const handleCreateButtonClick = () => {
-    setShowForm(true);
-  };
-  const handleAddPlayer = () => {
-    setShowForm(true);
+// ];
+
+export default function PlayerTable() {
+  const classes = useStyles();
+  const [listOfPlayers, setListOfPlayers] = useState([]);
+  const [adder, setAdder] = useState(0);
+  
+  const getPlayers = async (e) => {
+    const request = "http://localhost:8000/team/players/" + localStorage.getItem("team_id");
+    // const request = "http://localhost:8000/team/players/2";
+    const response = await fetch(request, 
+        {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    const data2 = await response.json();
+    setListOfPlayers(data2);
+  }
+
+  const deletePlayer = async (rowID) => {
+    console.log(rowID);
+    const request = "http://localhost:8000/players/" +rowID;
+    // const request = "http://localhost:8000/team/players/2";
+    const response = await fetch(request, 
+        {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    getPlayers();
+  }
+
+  const handleViewPlayers = (id) => {
+    console.log(`View players for submission ID ${id}`);
   };
 
-  const handleCloseForm = () => {
-    setShowForm(false);
-  };
-
-  const handleModifyPlayer = (index) => {
-    // Code to handle modify team action
-  };
-
-  const handleDeletePlayer = (index) => {
-    const newPlayer = [...Players];
-    newPlayer.splice(index, 1);
-    setPlayer(newPlayer);
-  };
+  useEffect(() => {
+    getPlayers();
+  }, []);
 
   return (
-    <>
-    <Sidebar/>
-    <div className="team-container">
-        <h2>Add players</h2>
-         
-      <button className="player-btn" onClick={handleCreateButtonClick }>Add</button>
-      <hr />
-      {showForm && <AddForm/>}(
-        <div className="player-form">
-          {/* Code for the form to add a team */}
-          <button onClick={handleCloseForm}>Close</button>
-        </div>
-      )
-      <table>
-        <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Middle Name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Birthday</th>
-            <th>Address</th>
-            <th>Phone</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Players.map((Players, index) => (
-            <tr key={Players.id}>
-              
-              <td>{Players.firstname}</td>
-              <td>{Players.lastname}</td>
-              <td>{Players.middlename}</td>
-              <td>{Players.gender}</td>
-              <td>{Players.age}</td>
-              <td>{Players.bithday}</td>
-              <td>{Players.address}</td>
-              <td>{Players.phone}</td>
-              <td>
-                <button onClick={() => handleModifyTeam(index)}>Modify</button>
-                <button onClick={() => handleDeleteTeam(index)}>Delete</button>
-              </td>
-            </tr>
+    <div>
+    <div>
+      <TableContainer component={Paper}>
+        <Sidebar/>
+        <h1>Basketball System Players Information</h1>
+        <AddPlayersModal />
+      </TableContainer>
+      
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="submission table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Player ID</TableCell>
+            <TableCell align="center">First Name</TableCell>
+            <TableCell align="center">Last Name</TableCell>
+            <TableCell align="center">Middle Name</TableCell>
+            <TableCell align="center">Gender</TableCell>
+            <TableCell align="center">Age</TableCell>
+            <TableCell align="center">Birthday</TableCell>
+            <TableCell align="center">Address</TableCell>
+            <TableCell align="center">Phone</TableCell>
+            <TableCell align="center"></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {listOfPlayers.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell component="th" scope="row">
+                {row.id}
+              </TableCell>
+              <TableCell align="center">{row.firstname}</TableCell>
+              <TableCell align="center">{row.lastname}</TableCell>
+              <TableCell align="center">{row.middlename}</TableCell>
+              <TableCell align="center">{row.gender}</TableCell>
+              <TableCell align="center">{row.age}</TableCell>
+              <TableCell align="center">{row.birthday}</TableCell>
+              <TableCell align="center">{row.address}</TableCell>
+              <TableCell align="center">{row.phone}</TableCell>
+              <TableCell align="center">
+                <Fab
+                  size="small"
+                  color="primary"
+                  className={classes.fab}
+                  aria-label="edit"
+                >
+                  <EditIcon />
+                </Fab>
+                <Fab
+                  size="small"
+                  color="secondary"
+                  className={classes.fab}
+                  aria-label="delete"
+                  onClick={() => deletePlayer(row.player_id)}
+                >
+                 <DeleteIcon />
+                </Fab>
+          
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
+      
+    </TableContainer>
     </div>
-    </>
+    </div>
   );
-};
-
-export default Players;
+}
