@@ -33,7 +33,8 @@ function AddSubmissionModal() {
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginBottom: '22px',
-                        marginTop: '18px'
+                        marginTop: '18px',
+                        marginLeft: '6px'
                     }}  color="primary" onClick={handleClickOpen}>
         Submit Your Team
       </Button>

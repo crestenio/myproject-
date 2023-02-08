@@ -1,10 +1,11 @@
-const generateJWT = require('./jwt/jwtGenerator');
-const auth = require('./middleware/auth')
-const client = require('./databasepg.js');
 const express = require('express');
 const bcrypt = require ('bcrypt');
 const cors = require('cors');
 const bodyParser = require("body-parser");
+const generateJWT = require('./jwt/jwtGenerator');
+const auth = require('./middleware/auth')
+const client = require('./databasepg.js');
+
 
 const app = express();
 client.connect();
@@ -28,7 +29,8 @@ app.get('/users', (req, res)=>{
     client.end;
 })
 app.get('/teams', (req, res)=>{
-    client.query(`Select * from teams Inner Join players On teams.team_id = players.player_id`, (err, result)=>{
+    client.query(`SELECT teams.*,COUNT(teams.team_id) AS numOfPlayers FROM teams INNER JOIN players ON players.team_id = teams.team_id
+                    GROUP BY teams.team_id`, (err, result)=>{
         if(!err){
             res.send(result.rows);
         }
@@ -74,7 +76,7 @@ app.get('/users/:user_id', (req, res)=>{
     client.end;
 })
 
-app.get('/teams/:team_id', (req, res)=>{
+app.get('/teams/:team_id',  (req, res)=>{
     client.query(`Select * from teams where team_id=${req.params.team_id}`, (err, result)=>{
         if(!err){
             res.send(result.rows);
@@ -87,6 +89,7 @@ app.get('/players/:player_id', (req, res)=>{
     client.query(`Select * from players where player_id=${req.params.player_id}`, (err, result)=>{
         if(!err){
             res.send(result.rows);
+            console.log(result.rows)
         }
     });
     client.end;
@@ -141,14 +144,17 @@ app.post('/users', (req, res)=> {
 })
 client.end;
 
-app.post('/teams', (req, res)=> {
-    const teamName = req.body ["team_name"]
+app.post('/teams', auth, (req, res)=> {
+    const teamName = req.body ["teamName"]
     const noOfPlayers = req.body["no_of_players"]
-    const teamManager = req.body["team_manager"]
-    const userID = req.body["user_id"]
+    const teamManager = req.body["teamManager"]
+    const userID = req.user["user_id"]
 
-    const insertQuery = `INSERT INTO teams (team_name, no_of_players, team_manager, user_id) VALUES ('${teamName}', '${noOfPlayers}', '${teamManager}', '${userID}');`
-    
+    console.log(teamName)
+    console.log(teamManager)
+
+    const insertQuery = `INSERT INTO teams (team_name, no_of_players, team_manager, user_id) VALUES ('${teamName}', '${0}', '${teamManager}', '${userID}');`
+    console.log(userID)
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")
         console.log(response)

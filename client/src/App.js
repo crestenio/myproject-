@@ -55,7 +55,7 @@ function App() {
             <Routes>
             
               <Route path='/Login' element={!isAuthenticated ? (<Login setAuth={setAuth}/> ): (
-                <Navigate to='/Sidebar'/>
+                <Navigate to='/Dashboard'/>
               ) } ></Route>
               <Route path='/Signup' element={!isAuthenticated ? (<Signup setAuth={setAuth}/> ): (
                 <Navigate to='/Signup'/>

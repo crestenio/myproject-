@@ -62,9 +62,14 @@ const EventTable = () => {
     <>
     
     <Sidebar/>
-      <h1>Basketball System Event Table</h1>
+    <TableContainer component={Paper} style={{
+                        backgroundColor: '#fff',
+                        marginBottom: '14px',
+                        marginTop: '18px'
+                    }}>
+      <h2>Basketball System Event Table</h2>
       <AddEvent/>
-      
+      </TableContainer>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="event table">
           <TableHead>

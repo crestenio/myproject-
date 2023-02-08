@@ -36,7 +36,8 @@ function AddTeamModal() {
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginTop: '18px',
-                        marginBottom: '22px'
+                        marginBottom: '22px',
+                        marginLeft: '6px'
                     }}  color="primary" onClick={handleClickOpen}>
         Add Event
       </Button>

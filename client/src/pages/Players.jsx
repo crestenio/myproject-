@@ -17,56 +17,22 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 100,
+    minWidth: 650,
   },
   fab: {
     margin: '10px',
   },
 });
 
-// const data = [
-//   {
-//     id: 1,
-//     firstName: 'Juan',
-//     lastName: 'Doe',
-//     middleName: 'A',
-//     gender: 'Male',
-//     age: 30,
-//     address: 'Manila',
-//     phone: '09209987654'
-
-//   },
-//   {
-//     id: 2,
-//     firstName: 'Carl',
-//     lastName: 'Aquino',
-//     middleName: 'T',
-//     gender: 'Male',
-//     age: 30,
-//     address: 'Navotas',
-//     phone: '09209989087'
-//   },
-//   {
-//     id: 3,
-//     firstName: 'Pedro',
-//     lastName: 'Penduko',
-//     middleName: 'C.',
-//     gender: 'Male',
-//     age: 25,
-//     address: 'Mandaluyong',
-//     phone: '09209987653',
-//   }
-  
-// ];
 
 export default function PlayerTable() {
   const classes = useStyles();
   const [listOfPlayers, setListOfPlayers] = useState([]);
-  const [adder, setAdder] = useState(0);
+ // const [adder, setAdder] = useState(0);
   
   const getPlayers = async (e) => {
     const request = "http://localhost:8000/team/players/" + localStorage.getItem("team_id");
-    // const request = "http://localhost:8000/team/players/2";
+    
     const response = await fetch(request, 
         {
         method: 'GET',
@@ -82,7 +48,7 @@ export default function PlayerTable() {
   const deletePlayer = async (rowID) => {
     console.log(rowID);
     const request = "http://localhost:8000/players/" +rowID;
-    // const request = "http://localhost:8000/team/players/2";
+   
     const response = await fetch(request, 
         {
         method: 'DELETE',
@@ -94,9 +60,24 @@ export default function PlayerTable() {
     getPlayers();
   }
 
-  const handleViewPlayers = (id) => {
-    console.log(`View players for submission ID ${id}`);
-  };
+  const editPlayer = async (rowID) => {
+    console.log(rowID);
+    const request = "http://localhost:8000/players/" +rowID;
+   
+    const response = await fetch(request, 
+        {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    getPlayers();
+  }
+
+  // const handleViewPlayers = (id) => {
+  //   console.log(`View players for submission ID ${id}`);
+  // };
 
   useEffect(() => {
     getPlayers();
@@ -105,9 +86,13 @@ export default function PlayerTable() {
   return (
     <div>
     <div>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{
+                        backgroundColor: '#fff',
+                        marginBottom: '14px',
+                        marginTop: '18px'
+                    }}>
         <Sidebar/>
-        <h1>Basketball System Players Information</h1>
+        <h2>Basketball System Players Information</h2>
         <AddPlayersModal />
       </TableContainer>
       
@@ -147,6 +132,7 @@ export default function PlayerTable() {
                   color="primary"
                   className={classes.fab}
                   aria-label="edit"
+                  onClick={() => editPlayer(row.player_id)}
                 >
                   <EditIcon />
                 </Fab>

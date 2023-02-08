@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -26,35 +26,73 @@ const useStyles = makeStyles({
   },
 });
 
-const teams = [
-  { id: 1, name: 'Team 1', manager: 'Manager 1', players: 10 },
-  { id: 2, name: 'Team 2', manager: 'Manager 2', players: 12 },
-  { id: 3, name: 'Team 3', manager: 'Manager 3', players: 8 },
-  { id: 4, name: 'Team 4', manager: 'Manager 4', players: 9 },
-];
+// const teams = [
+//   { id: 1, name: 'Team 1', manager: 'Manager 1', players: 10 },
+//   { id: 2, name: 'Team 2', manager: 'Manager 2', players: 12 },
+//   { id: 3, name: 'Team 3', manager: 'Manager 3', players: 8 },
+//   { id: 4, name: 'Team 4', manager: 'Manager 4', players: 9 },
+// ];
 
 export default function BasketballSystemTable() {
   const classes = useStyles();
-  const [searchText, setSearchText] = useState('');
+  const [listOfTeams, setListOfTeams] = useState([]);
 
-  const filteredTeams = teams.filter(team =>
-    team.name.toLowerCase().includes(searchText.toLowerCase())
-  );
+  const getTeams = async (e) => {
+    const request = "http://localhost:8000/teams/" 
+    
+    const response = await fetch(request, 
+        {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    const teamData = await response.json();
+    setListOfTeams(teamData);
+    
+  }
+getTeams();
+
+  const handleDelete = async (rowID) => {
+    console.log(rowID);
+    const request = "http://localhost:8000/teams/" +rowID;
+   
+    const response = await fetch(request, 
+        {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    
+  }
+
   
-  const [tableData, setTableData] = useState(teams);
+    const [searchText, setSearchText] = useState('');
+  // const allTeams = allTeams.filter(team =>
+  //   team.name.toLowerCase().includes(searchText.toLowerCase())
+  // );
+  
+  // const [tableData, setTableData] = useState(teams);
 
-  const handleDelete = (id) => {
-    setTableData(tableData.filter(team => team.id !== id));
-  };
+  // const handleDelete = (id) => {
+  //   setTableData(tableData.filter(team => team.id !== id));
+  // };
 
   const handleEdit = (id) => {
     // Code for editing event
   };
+
   const handleViewPlayers = (id) => {
     console.log(`View players for Team ID ${id}`);
     localStorage.setItem("team_id", id);
   };
 
+  useEffect(() => {
+    getTeams();
+  }, []);
 
   return (
     <>
@@ -64,11 +102,10 @@ export default function BasketballSystemTable() {
     <div>
       <TableContainer component={Paper} style={{
                         backgroundColor: '#fff',
-                        color: '#000',
                         marginBottom: '14px',
                         marginTop: '18px'
                     }}>
-        <h1>Basketball System Team Information</h1>
+        <h2>Basketball System Team Information</h2>
         <TextField style={{
                         width: '80%',
                         color: '#eb8045',
@@ -88,25 +125,25 @@ export default function BasketballSystemTable() {
             <TableRow>
               <TableCell>Team ID</TableCell>
               <TableCell>Team Name</TableCell>
-              <TableCell>Team Manager</TableCell>
               <TableCell>No of Players</TableCell>
+              <TableCell>Team Manager</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredTeams.map(team => (
-              <TableRow key={team.id}>
+            {listOfTeams.map((row) => (
+              <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
-                  {team.id}
+                  {row.team_id}
                 </TableCell>
-                <TableCell>{team.name}</TableCell>
-                <TableCell>{team.manager}</TableCell>
-                <TableCell>{team.players}</TableCell>
+                <TableCell>{row.team_name}</TableCell>
+                <TableCell>{row.numofplayers}</TableCell>
+                <TableCell>{row.team_manager}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="edit" onClick={() => handleEdit(team.id)}>
+                  <IconButton aria-label="edit" onClick={() => handleEdit(row.team_id)}>
                     <EditIcon />
                   </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDelete(team.id)}>
+                  <IconButton aria-label="delete" onClick={() => handleDelete(row.team_id)}>
                      <DeleteIcon />
                 </IconButton>
                 <Button style={{
@@ -115,7 +152,7 @@ export default function BasketballSystemTable() {
                     }}
                     variant="contained"
                     color="primary"
-                    onClick={() => handleViewPlayers(team.id)}
+                    onClick={() => handleViewPlayers(row.team_id)}
                   >
                     <a href="players" style={{
                         backgroundColor: '#eb8045',

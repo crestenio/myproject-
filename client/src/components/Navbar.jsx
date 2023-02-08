@@ -9,7 +9,7 @@ const Navbar = () => {
                     <ul>
     
                         <li><a href='Home'>Home</a></li>
-                        <li><a href='EventDisplay'>Events</a></li>
+                        <li><a href='Footer'>Support</a></li>
                         <li><a href='Footer'>Contact Us</a></li>
                             <a href='Login'><button className='btn-sign' >Sign In</button></a>
                     </ul>

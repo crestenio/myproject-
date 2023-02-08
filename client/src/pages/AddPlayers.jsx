@@ -31,7 +31,7 @@ function AddPlayersModal({setter}) {
   const handleSave = async (e) => {
     e.preventDefault()
     try {
-        const body = { firstname, lastname, middlename, gender, age, birthday, address, phone, team_id }
+        const body = { firstname, lastname, middlename, gender, age, birthday, address, phone, team_id: localStorage.getItem('team_id') }
         const response = await fetch("http://localhost:8000/players", 
             {
             method: 'POST',
@@ -58,7 +58,7 @@ function AddPlayersModal({setter}) {
                         color: '#fff',
                         marginBottom: '22px',
                         marginTop: '18px',
-                        marginLeft: '14px'
+                        marginLeft: '6px'
                     }}  color="primary" onClick={handleClickOpen}>
         Add Players
       </Button>
@@ -145,7 +145,7 @@ function AddPlayersModal({setter}) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
             />
-            <TextField
+            {/* <TextField
                 margin="dense"
                 id="team_id"
                 label="Team ID"
@@ -153,7 +153,7 @@ function AddPlayersModal({setter}) {
                 fullWidth
                 value={team_id}
                 onChange={(e) => setTeamID(e.target.value)}
-            />
+            /> */}
           </form>
         </DialogContent>
         

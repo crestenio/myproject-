@@ -21,9 +21,32 @@ function AddTeamModal() {
     setOpen(false);
   };
 
-  const handleSave = () => {
+  const handleSave = async (e) => {
+
+    // Logic to save the team data
+    e.preventDefault()
+    try {
+        const body = { teamName, teamManager }
+        console.log(body)
+        const response = await fetch("http://localhost:8000/teams", 
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + localStorage.getItem("token")                 
+                
+            },
+            body: JSON.stringify(body)
+            }
+        )
+        const data = await response.json()
+            console.log('Success:', data)
+    }catch(error) {
+        console.log('Error:', error);
+      }
     // Logic to save the team data
     setOpen(false);
+    
   };
 
   return (
@@ -62,7 +85,7 @@ function AddTeamModal() {
             value={teamManager}
             onChange={(e) => setTeamManager(e.target.value)}
           />
-          <TextField
+          {/* <TextField
             margin="dense"
             id="players"
             label="Number of Players"
@@ -70,7 +93,7 @@ function AddTeamModal() {
             fullWidth
             value={numPlayers}
             onChange={(e) => setNumPlayers(e.target.value)}
-          />
+          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

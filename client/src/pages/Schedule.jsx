@@ -57,9 +57,14 @@ export default function ScheduleTable() {
     <>
         <div>
             <Sidebar/>
-            
-        <h1>Basketball System Event Schedule</h1>
+            <TableContainer component={Paper} style={{
+                        backgroundColor: '#fff',
+                        marginBottom: '14px',
+                        marginTop: '18px'
+                    }}>
+              <h2>Basketball System Event Schedule</h2>
           <AddScheduleModal/>
+          </TableContainer>
         <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="schedule table">
             <TableHead>

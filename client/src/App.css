@@ -369,7 +369,7 @@ nav ul a button.btn-sign {
   cursor: pointer;
 }
 
-.sidebar-list #active {
+.Sidebar-list .li-row #active {
   background-color: #2f4050;
 }
 
