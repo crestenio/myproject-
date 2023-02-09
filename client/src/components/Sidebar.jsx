@@ -1,8 +1,16 @@
 import React from 'react';
 import '../App.css'
 import { SidebarContent } from '../pages/SidebarContent';
+import {FiAlignJustify, FiLogOut} from 'react-icons/fi';
+
 
 function Sidebar () {
+    const handleLogout = () => {
+        localStorage.removeItem('user.token')
+        localStorage.removeItem('user.user_id')
+        window.location = "/"
+    }
+    
     return (
         <>
             <div className='Sidebar-container'>
@@ -16,6 +24,16 @@ function Sidebar () {
                         </li>
                     );
                 })}
+                <div className='row-logout' id='logout'>
+                    <FiLogOut style={{ color: "red",
+                                        fontSize: "30px",
+                                        marginTop: "60px",
+                                        
+                                    
+                                       
+                                        }}/>
+                    <a href='#Home' id="button-logout"  onClick={handleLogout}>Logout</a>
+                    </div>
                 </ul>
             </div>
         </>

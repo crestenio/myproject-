@@ -48,12 +48,8 @@ export const SidebarContent = [
         title: "Account Settings",
         icon: <MdManageAccounts />,
         link: "./AccountSettings"
-    },
-    {
-        title: "Logout",
-        icon: <FiLogOut style={{ color: "red" }} />,
-        link: "./Logout"
     }
+    
 ]
     
 

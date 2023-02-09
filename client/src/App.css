@@ -565,4 +565,28 @@ hr {
   background-color: #fff;
 }
 
-/* teams content */
+/* logout*/
+
+#button-logout {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-left: 12px;
+  font-size: 18px;
+  color: #fff;
+  margin-top: 60px;
+
+  border: none;
+}
+
+.row-logout {
+  display: flex;
+  flex-direction: row;
+  margin-left: 20px;
+}
+
+#button-logout:hover {
+  opacity: 0.8;
+  background-color: red;
+}

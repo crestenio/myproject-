@@ -6,13 +6,11 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { Grid, Paper, TableContainer, TextField } from '@material-ui/core';
+import {Paper, TableContainer, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
-import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
+
 import AddTeamModal from '../pages/AddTeams';
 import Fab from '@material-ui/core/Fab';
 
