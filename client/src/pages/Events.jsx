@@ -65,12 +65,15 @@ const EventTable = () => {
     <TableContainer component={Paper} style={{
                         backgroundColor: '#fff',
                         marginBottom: '14px',
-                        marginTop: '18px'
+                        marginTop: '18px',
+                        marginLeft: '100px'
                     }}>
       <h2>Basketball System Event Table</h2>
       <AddEvent/>
       </TableContainer>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{
+                        marginLeft: '100px'
+                    }}>
         <Table className={classes.table} aria-label="event table">
           <TableHead>
             <TableRow>
@@ -89,12 +92,25 @@ const EventTable = () => {
                 <TableCell>{event.date} {event.time}</TableCell>
                 <TableCell>{event.venue}</TableCell>
                 <TableCell>
-                  <IconButton aria-label="edit" onClick={() => handleEdit(event.id)}>
+                  <Fab style={{
+                      marginRight: '22px'
+                                      
+                                }}
+                      size="small"
+                      className={classes.fab}
+                      color="primary"
+                      aria-label="edit" 
+                      onClick={() => handleEdit(event.id)}>
                     <EditIcon />
-                  </IconButton>
-                  <IconButton aria-label="delete" onClick={() => handleDelete(event.id)}>
+                  </Fab>
+                  <Fab 
+                      size="small"
+                      className={classes.fab}
+                      color="secondary"
+                      aria-label="delete" 
+                      onClick={() => handleDelete(event.id)}>
                      <DeleteIcon />
-                </IconButton>
+                </Fab>
               </TableCell>
             </TableRow>
           ))}

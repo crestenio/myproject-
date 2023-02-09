@@ -341,9 +341,12 @@ nav ul a button.btn-sign {
   top: 0;
   background-color: #3c3c3c;
   color: #fff;
-  height: 100%;
+  min-height: 100vh;
   width: 200px;
   transition: all 0.5s;
+  align-items: stretch;
+  position: fixed;
+  down: 0;
 }
 
 .Sidebar-list {
@@ -561,3 +564,5 @@ hr {
 .dashboard-container {
   background-color: #fff;
 }
+
+/* teams content */

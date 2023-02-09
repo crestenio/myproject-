@@ -6,6 +6,18 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
+const teamOptions = [
+  { name: 'Team 1' },
+  { name: 'Team 2' },
+  { name: 'Team 3' },
+  { name: 'Team 4' },
+];
+
 
 function AddScheduleModal() {
   const [open, setOpen] = useState(false);
@@ -13,7 +25,7 @@ function AddScheduleModal() {
   const [venue, setVenue] = useState('');
   const [scheduleDate, setScheduleDate] = useState('');
   const [scheduleTime, setScheduleTime] = useState('');
-  
+  const [opponentTeam, setOpponentTeam] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -31,7 +43,6 @@ function AddScheduleModal() {
 
   return (
     <>
-    
     <div>
       <Button style={{
                         backgroundColor: '#eb8045',
@@ -48,16 +59,42 @@ function AddScheduleModal() {
           <DialogContentText>
             Fill in the details for the team.
           </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="Name"
-            label="Team Name"
-            type="text"
-            fullWidth
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
-          />
+          <FormControl fullWidth>
+          <InputLabel id="opponent-team-select-label">Opponent Team A</InputLabel>
+          <Select
+            labelId="opponent-team-select-label"
+            id="opponent-team-select"
+            value={opponentTeam}
+            onChange={(e) => setOpponentTeam(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {teamOptions.map((teamOption) => (
+              <MenuItem key={teamOption.value} value={teamOption.value}>
+                {teamOption.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+          <FormControl fullWidth>
+          <InputLabel id="opponent-team-select-label">Opponent Team B </InputLabel>
+          <Select
+            labelId="opponent-team-select-label"
+            id="opponent-team-select"
+            value={opponentTeam}
+            onChange={(e) => setOpponentTeam(e.target.value)}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {teamOptions.map((teamOption) => (
+              <MenuItem key={teamOption.value} value={teamOption.value}>
+                {teamOption.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
           <TextField
             margin="dense"
             id="venue"
@@ -83,19 +120,19 @@ function AddScheduleModal() {
           onChange={(e) => setScheduleTime(e.target.value)}
         />
           
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleSave} color="primary">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-    </>
-  );
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose} color="primary">
+          Cancel
+        </Button>
+        <Button onClick={handleSave} color="primary">
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </div>
+  </>
+);
 }
 
 export default AddScheduleModal;

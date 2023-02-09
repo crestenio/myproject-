@@ -28,10 +28,19 @@ app.get('/users', (req, res)=>{
     });
     client.end;
 })
-app.get('/teams', (req, res)=>{
+app.get('/teams1', (req, res)=>{
     client.query(`SELECT teams.*,COUNT(teams.team_id) AS numOfPlayers FROM teams INNER JOIN players ON players.team_id = teams.team_id
                     GROUP BY teams.team_id`, (err, result)=>{
-        if(!err){
+        if(!err){ 
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
+app.get('/teams2', (req, res)=>{
+    client.query(`Select * From teams`, (err, result)=>{
+        if(!err){ 
             res.send(result.rows);
         }
     });
@@ -150,8 +159,8 @@ app.post('/teams', auth, (req, res)=> {
     const teamManager = req.body["teamManager"]
     const userID = req.user["user_id"]
 
-    console.log(teamName)
-    console.log(teamManager)
+    // console.log(teamName)
+    // console.log(teamManager)
 
     const insertQuery = `INSERT INTO teams (team_name, no_of_players, team_manager, user_id) VALUES ('${teamName}', '${0}', '${teamManager}', '${userID}');`
     console.log(userID)
@@ -197,9 +206,8 @@ app.post('/schedule', (req, res)=> {
     const Venue = req.body["venue"]
     const dateTime = req.body["date_time"]
     const userID = req.body["user_id"]
-    const teamID = req.body["team_id"]
 
-    const insertQuery = `INSERT INTO schedule (team_names, venue, date_time, user_id, team_id) VALUES ('${teamNames}', '${Venue}', '${dateTime}', '${userID}', '${teamID}');`
+    const insertQuery = `INSERT INTO schedule (team_names, venue, date_time, user_id) VALUES ('${teamNames}', '${Venue}', '${dateTime}', '${userID}');`
     
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")
@@ -326,7 +334,16 @@ app.delete('/users/:user_id', (req, res)=> {
 })
 
 app.delete('/teams/:team_id', (req, res)=> {
-    let insertQuery = `delete from teams where team_id=${req.params.team_id}`
+    let insertQuery = `
+                        ALTER TABLE players
+                        ADD CONSTRAINT players_unique_team_id
+                        UNIQUE (team_id);
+
+                        ALTER TABLE teams
+                        ADD CONSTRAINT players_team_id_fkey
+                        FOREIGN KEY (team_id)
+                        REFERENCES players(team_id)
+                        ON DELETE CASCADE;`
 
     client.query(insertQuery, (err, result)=>{
         if(!err){

@@ -62,12 +62,15 @@ export default function SubmissionTable() {
                         backgroundColor: '#fff',
                         color: '#000',
                         marginBottom: '14px',
-                        marginTop: '18px'
+                        marginTop: '18px',
+                        marginLeft: '100px'
                     }}>
       <h2>Basketball System Event Submission</h2>
       <AddSubmissionModal/>
       </TableContainer>
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{
+                        marginLeft: '100px'
+                    }}>
       <Table className={classes.table} aria-label="submission table">
         <TableHead>
           <TableRow>

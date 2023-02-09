@@ -26,7 +26,7 @@ function AddTeamModal() {
     // Logic to save the team data
     e.preventDefault()
     try {
-        const body = { teamName, teamManager }
+        const body = { teamName, teamManager, user_id: localStorage.getItem('user_id') }
         console.log(body)
         const response = await fetch("http://localhost:8000/teams", 
             {

@@ -107,7 +107,7 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-                Learn More
+                View
               </Button>
             </CardActions>
           </Card>
@@ -127,7 +127,7 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-                Learn More
+                View
               </Button>
             </CardActions>
           </Card>
@@ -147,7 +147,7 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-                Learn More
+                View
               </Button>
             </CardActions>
           </Card>

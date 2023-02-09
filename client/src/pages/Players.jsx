@@ -5,10 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
+
+import { Grid, Paper, TableContainer } from '@material-ui/core';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -44,6 +45,7 @@ export default function PlayerTable() {
     const data2 = await response.json();
     setListOfPlayers(data2);
   }
+  getPlayers();
 
   const deletePlayer = async (rowID) => {
     console.log(rowID);
@@ -57,7 +59,7 @@ export default function PlayerTable() {
         }
         }
     )
-    getPlayers();
+    
   }
 
   const editPlayer = async (rowID) => {
@@ -84,19 +86,23 @@ export default function PlayerTable() {
   }, []);
 
   return (
+    <>
     <div>
-    <div>
+      
       <TableContainer component={Paper} style={{
                         backgroundColor: '#fff',
                         marginBottom: '14px',
-                        marginTop: '18px'
+                        marginTop: '18px',
+                        width: '80%',
+                        marginLeft: '240px'
                     }}>
         <Sidebar/>
         <h2>Basketball System Players Information</h2>
         <AddPlayersModal />
       </TableContainer>
       
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} style={{ width: '80%',
+                                               marginLeft: '240px' }} >
       <Table className={classes.table} aria-label="submission table">
         <TableHead>
           <TableRow>
@@ -149,11 +155,12 @@ export default function PlayerTable() {
               </TableCell>
             </TableRow>
           ))}
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
       
-    </TableContainer>
+      </TableContainer>
+     
     </div>
-    </div>
+    </>
   );
 }
