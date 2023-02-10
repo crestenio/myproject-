@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import AddSubmissionModal from '../pages/AddSubmission';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,33 +25,78 @@ const useStyles = makeStyles({
   },
 });
 
-const data = [
-  {
-    id: 1,
-    teamName: 'Team A',
-    manager: 'John Doe',
-    players: 10,
-  },
-  {
-    id: 2,
-    teamName: 'Team B',
-    manager: 'Jane Doe',
-    players: 12,
-  },
-  {
-    id: 3,
-    teamName: 'Team C',
-    manager: 'James Doe',
-    players: 15,
-  },
-];
+// const data = [
+//   {
+//     id: 1,
+//     teamName: 'Team A',
+//     manager: 'John Doe',
+//     players: 10,
+//   },
+//   {
+//     id: 2,
+//     teamName: 'Team B',
+//     manager: 'Jane Doe',
+//     players: 12,
+//   },
+//   {
+//     id: 3,
+//     teamName: 'Team C',
+//     manager: 'James Doe',
+//     players: 15,
+//   },
+// ];
 
 export default function SubmissionTable() {
   const classes = useStyles();
+  const [listOfSubmission, setListOfSubmission] = useState([]);
+
+  const getSubmission = async (e) => {
+    const request = "http://localhost:8000/submission1/"
+    
+    const response = await fetch(request, 
+        {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    const submissionData = await response.json();
+    setListOfSubmission(submissionData);
+  }
+  getSubmission();
+
+
+    const deleteSubmission = async (rowID) => {
+    console.log(rowID);
+    const request = "http://localhost:8000/submission/" + rowID;
+   
+    const response = await fetch(request, 
+        {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+     
+  }
+
+    const handleEdit = () => {
+      // setSubmission();
+      // setOpen(true);
+    };
+
 
   const handleViewPlayers = (id) => {
     console.log(`View players for submission ID ${id}`);
+    localStorage.setItem("user_id", id);
   };
+
+  useEffect(() => {
+    getSubmission();
+    
+  }, []);
 
   return (
     <>
@@ -82,21 +127,21 @@ export default function SubmissionTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {listOfSubmission.map((row) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.id}
+                {row.submission_id}
               </TableCell>
-              <TableCell align="center">{row.teamName}</TableCell>
-              <TableCell align="center">{row.manager}</TableCell>
-              <TableCell align="center">{row.players}</TableCell>
+              <TableCell align="center">{row.team_name}</TableCell>
+              <TableCell align="center">{row.numofplayers}</TableCell>
+              <TableCell align="center">{row.team_manager}</TableCell>
               <TableCell align="center">
                 <Fab
                   size="small"
                   color="primary"
                   className={classes.fab}
                   aria-label="edit"
-                >
+                  onClick={() => handleEdit(row.submission_id)}>
                   <EditIcon />
                 </Fab>
                 <Fab
@@ -104,7 +149,7 @@ export default function SubmissionTable() {
                   color="secondary"
                   className={classes.fab}
                   aria-label="delete"
-                >
+                  onClick={() => deleteSubmission(row.submission_id)}>
                  <DeleteIcon />
                 </Fab>
                 <Button style={{
@@ -116,7 +161,7 @@ export default function SubmissionTable() {
                     }}
         
                         color="primary"
-                        onClick={() => handleViewPlayers(data.id)}
+                        onClick={() => handleViewPlayers(row.submission_id)}
                       >
                         View Players
                       </Button>

@@ -128,7 +128,8 @@ export default function PlayerTable() {
         open={open} 
         onClose={handleClose}
         message={message}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
+        
         />
     <div>
       

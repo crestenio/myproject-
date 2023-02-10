@@ -76,7 +76,17 @@ app.get('/schedule', (req, res)=>{
     client.end;
 })
 
-app.get('/submission', (req, res)=>{
+app.get('/submission1', (req, res)=>{
+    client.query(`SELECT teams.*,COUNT(teams.team_id) AS numOfPlayers FROM teams INNER JOIN players ON players.team_id = teams.team_id
+                    GROUP BY teams.team_id`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
+app.get('/submission2', (req, res)=>{
     client.query(`Select * from submission`, (err, result)=>{
         if(!err){
             res.send(result.rows);
@@ -84,6 +94,7 @@ app.get('/submission', (req, res)=>{
     });
     client.end;
 })
+
 
 //get queries via ID
 
@@ -266,9 +277,8 @@ app.post('/submission', (req, res)=> {
     const Players = req.body["no_of_players"]
     const teammanager = req.body["team_manager"]
     const userID = req.body["user_id"]
-    const teamID = req.body["team_id"]
 
-    const insertQuery = `INSERT INTO submission (team_name, no_of_players, team_manager, user_id, team_id) VALUES ('${teamname}', '${Players}', '${teammanager}', '${userID}', '${teamID}');`
+    const insertQuery = `INSERT INTO submission (team_name, no_of_players, team_manager, user_id) VALUES ('${teamname}', '${0}', '${teammanager}', '${userID}');`
     
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")

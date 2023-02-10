@@ -22,12 +22,6 @@ const useStyles = makeStyles({
   },
 });
 
-// const teams = [
-//   { id: 1, name: 'Team 1', manager: 'Manager 1', players: 10 },
-//   { id: 2, name: 'Team 2', manager: 'Manager 2', players: 12 },
-//   { id: 3, name: 'Team 3', manager: 'Manager 3', players: 8 },
-//   { id: 4, name: 'Team 4', manager: 'Manager 4', players: 9 },
-// ];
 
 export default function BasketballSystemTable() {
   const classes = useStyles();
@@ -177,10 +171,9 @@ export default function BasketballSystemTable() {
                         {row.team_id}
                       </TableCell>
                       <TableCell>{row.team_name}</TableCell>
-                      <TableCell>
-                        {row.numofplayers}
-                      </TableCell>
+                      <TableCell>{row.numofplayers}</TableCell>
                       <TableCell>{row.team_manager}</TableCell>
+                      
                       <TableCell>
                         <Fab style={{
                                       marginRight: '22px'

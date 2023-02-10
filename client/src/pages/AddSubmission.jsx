@@ -21,8 +21,29 @@ function AddSubmissionModal() {
     setOpen(false);
   };
 
-  const handleSave = () => {
-    // Logic to save the team data
+  const handleSave = async (e) => {
+    // Logic to save the submission data
+    e.preventDefault()
+    try {
+        const body = { teamName, teamManager, user_id: localStorage.getItem('user_id') }
+        console.log(body)
+        const response = await fetch("http://localhost:8000/submission", 
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + localStorage.getItem("token")                 
+                
+            },
+            body: JSON.stringify(body)
+            }
+        )
+        const subData = await response.json()
+            console.log('Success:', subData)
+    }catch(error) {
+        console.log('Error:', error);
+      }
+      //Logic to save the team data
     setOpen(false);
   };
 
