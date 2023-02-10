@@ -5,14 +5,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-
 import {Paper, TableContainer } from '@material-ui/core';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Snackbar } from '@material-ui/core';
+
+
 
 
 
@@ -47,6 +48,19 @@ export default function PlayerTable() {
   }
   getPlayers();
 
+  //Toastify//
+
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+
+  const handleClose = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpen(false);
+  };
+
   const deletePlayer = async (rowID) => {
     console.log(rowID);
     const request = "http://localhost:8000/players/" +rowID;
@@ -59,8 +73,18 @@ export default function PlayerTable() {
         }
         }
     )
-    
+    if (response.status === 200) {
+      setMessage("Player deleted successfully!");
+        setOpen(true)
+        getPlayers()
+      
+    } else {
+      setMessage("Error deleting player!") 
+        setOpen(true)
+    }
   }
+
+    
 
   const editPlayer = async (rowID) => {
     console.log(rowID);
@@ -74,7 +98,16 @@ export default function PlayerTable() {
         }
         }
     )
-    getPlayers();
+
+    if (response.status === 200) {
+      setMessage('Player updated successfully!');
+      setOpen(true);
+      getPlayers();
+  } else {
+      setMessage('Error updating player!');
+      setOpen(true);
+  }
+    
   }
 
   // const handleViewPlayers = (id) => {
@@ -87,6 +120,16 @@ export default function PlayerTable() {
 
   return (
     <>
+      <Snackbar 
+      anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open} 
+        onClose={handleClose}
+        message={message}
+        autoHideDuration={5000}
+        />
     <div>
       
       <TableContainer component={Paper} style={{

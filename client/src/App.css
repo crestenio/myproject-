@@ -514,6 +514,12 @@ footer {
   line-height: 0;
 }
 
+.footer-bottom-section-last {
+  margin-bottom: 14px;
+  line-height: 0;
+  cursor: pointer;
+}
+
 /*pages*/
 
 /*Teams*/

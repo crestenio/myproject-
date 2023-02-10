@@ -26,7 +26,6 @@ import Reports from './pages/Reports';
 import AccountSettings from './pages/AccountSettings';
 
 
-
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
 
@@ -41,7 +40,7 @@ function App() {
   return (
     //router to redirect and check authentication
     <>  
-  
+    
      <div className="App">
     
       <Router>

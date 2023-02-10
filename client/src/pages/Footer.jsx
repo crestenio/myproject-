@@ -64,9 +64,10 @@ const Footer = () => {
             <p>
                Sportsmatch @{new Date().getFullYear()} || All Rights Reserved
             </p>
-            <div>
+            <div class="footer-bottom-section-last">
               <p> PRIVACY POLICY</p>
               <p> TERMS & CONDITIONS</p>
+              <p> FAQ</p>
             </div>
           </div>
         </div>
