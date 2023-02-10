@@ -27,10 +27,7 @@ function Sidebar () {
                 <div className='row-logout' id='logout'>
                     <FiLogOut style={{ color: "red",
                                         fontSize: "30px",
-                                        marginTop: "60px",
-                                        
-                                    
-                                       
+                                        marginTop: "60px"
                                         }}/>
                     <a href='#Home' id="button-logout"  onClick={handleLogout}>Logout</a>
                     </div>

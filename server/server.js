@@ -28,6 +28,17 @@ app.get('/users', (req, res)=>{
     });
     client.end;
 })
+
+app.get('/events', (req, res)=>{
+    client.query(`Select * from events`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
+
 app.get('/teams1', (req, res)=>{
     client.query(`SELECT teams.*,COUNT(teams.team_id) AS numOfPlayers FROM teams INNER JOIN players ON players.team_id = teams.team_id
                     GROUP BY teams.team_id`, (err, result)=>{
@@ -39,7 +50,7 @@ app.get('/teams1', (req, res)=>{
 })
 
 app.get('/teams2', (req, res)=>{
-    client.query(`Select * From teams`, (err, result)=>{
+    client.query(`Select * from teams`, (err, result)=>{
         if(!err){ 
             res.send(result.rows);
         }
@@ -78,6 +89,15 @@ app.get('/submission', (req, res)=>{
 
 app.get('/users/:user_id', (req, res)=>{
     client.query(`Select * from users where user_id=${req.params.user_id}`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
+app.get('/events/:event_id',  (req, res)=>{
+    client.query(`Select * from events where event_id=${req.params.event_id}`, (err, result)=>{
         if(!err){
             res.send(result.rows);
         }
@@ -141,6 +161,26 @@ app.post('/users', (req, res)=> {
 
     const insertQuery = `INSERT INTO users (firstname, lastname, username, password, confirm_password) VALUES ('${firstname}', '${lastname}', '${username}', '${password}', '${confirm_password}');`
     
+    client.query(insertQuery) .then((response) =>{
+        console.log("Data Saved")
+        console.log(response)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+    console.log(req.body);
+    res.send("Response Received: " + req.body);
+})
+client.end;
+
+app.post('/events', auth, (req, res)=> {
+    const eventName = req.body ["eventName"]
+    const eventDate = req.body["eventDate"]
+    const eventVenue = req.body["eventVenue"]
+    const userID = req.user["user_id"]
+
+    const insertQuery = `INSERT INTO teams (event_name, date_time, venue, user_id) VALUES ('${eventName}', '${eventDate}', '${eventVenue}', '${userID}');`
+    console.log(userID)
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")
         console.log(response)
@@ -263,6 +303,23 @@ app.put('/users/:user_id', (req, res)=> {
     client.end;
 })
 
+app.put('/events/:event_id', (req, res)=> {
+    let event = req.body;
+    let updateQuery = `update events
+                       set event_name = '${event.event_name}',
+                       date_time = '${event.date_time}',
+                       venue = '${event.venue}'
+                       where event_id = ${event.event_id}`
+
+    client.query(updateQuery, (err, result)=>{
+        if(!err){
+            res.send('Update was successful')
+        }
+        else{ console.log(err.message) }
+    })
+    client.end;
+})
+
 app.put('/teams/:team_id', (req, res)=> {
     let team = req.body;
     let updateQuery = `update teams
@@ -279,6 +336,7 @@ app.put('/teams/:team_id', (req, res)=> {
     })
     client.end;
 })
+
 
 app.put('/players/:player_id', (req, res)=> {
     let player = req.body;
@@ -333,17 +391,21 @@ app.delete('/users/:user_id', (req, res)=> {
     client.end;
 })
 
-app.delete('/teams/:team_id', (req, res)=> {
-    let insertQuery = `
-                        ALTER TABLE players
-                        ADD CONSTRAINT players_unique_team_id
-                        UNIQUE (team_id);
+app.delete('/events/:event_id', (req, res)=> {
+    let insertQuery = `delete from events where event_id=${req.params.event_id}`
 
-                        ALTER TABLE teams
-                        ADD CONSTRAINT players_team_id_fkey
-                        FOREIGN KEY (team_id)
-                        REFERENCES players(team_id)
-                        ON DELETE CASCADE;`
+    client.query(insertQuery, (err, result)=>{
+        if(!err){
+            res.send('Deletion was successful')
+        }
+        else{ console.log(err.message) }
+    })
+    client.end;
+})
+
+
+app.delete('/teams/:team_id', (req, res)=> {
+    let insertQuery = `delete from teams where team_id=${req.params.team_id}`
 
     client.query(insertQuery, (err, result)=>{
         if(!err){

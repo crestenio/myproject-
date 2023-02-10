@@ -33,7 +33,7 @@ export default function BasketballSystemTable() {
   const classes = useStyles();
   const [listOfTeams, setListOfTeams] = useState([]);
   //const [listOfTeamsWithPlayers, setListOfTeamsWithPlayers] = useState([]);
-  const [teamID, setTeamID] = useState({});
+  //const [teamID, setTeamID] = useState({});
   const getTeams = async (e) => {
     const request = "http://localhost:8000/teams1/" 
     

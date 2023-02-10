@@ -62,10 +62,23 @@ const BasketballSystemDashboard = () => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
+  const handleLogout = () => {
+        localStorage.removeItem('user.token')
+        localStorage.removeItem('user.user_id')
+        window.location = "/"
+    }
+    
+
   return (
     <>
     <Sidebar/>
-    <div className={classes.root}>
+    <div className={classes.root} style={{
+                        
+                        marginBottom: '14px',
+                        marginTop: '18px',
+                        width: '80%',
+                        marginLeft: '300px'
+                    }}>
       <div className={classes.accountSection}>
         <Avatar className={classes.accountAvatar}>A</Avatar>
         <Typography variant="body1">Account Name</Typography>
@@ -91,13 +104,19 @@ const BasketballSystemDashboard = () => {
               <ListItemText primary="Account Settings" />
             </ListItem>
             <ListItem button>
-              <ListItemText primary="Sign Out" />
+              <ListItemText primary="Sign Out" onClick={handleLogout} />
             </ListItem>
           </List>
         </Popover>
       </div>
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={2} style={{
+                        
+                        marginBottom: '14px',
+                        marginTop: '14px',
+                        width: '80%',
+                        marginLeft: '50px'
+                    }}>
+        <Grid item xs={14} sm={6}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardContent className={classes.cardContent}>
@@ -112,7 +131,7 @@ const BasketballSystemDashboard = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={14} sm={6}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardContent className={classes.cardContent}>

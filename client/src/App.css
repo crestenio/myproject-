@@ -586,6 +586,10 @@ hr {
   margin-left: 20px;
 }
 
+#button-logout {
+  margin-left: 0px;
+}
+
 #button-logout:hover {
   opacity: 0.8;
   background-color: red;

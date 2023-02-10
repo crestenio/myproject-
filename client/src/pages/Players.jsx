@@ -122,7 +122,7 @@ export default function PlayerTable() {
           {listOfPlayers.map((row) => (
             <TableRow key={row.id}>
               <TableCell component="th" scope="row">
-                {row.id}
+                {row.player_id}
               </TableCell>
               <TableCell align="center">{row.firstname}</TableCell>
               <TableCell align="center">{row.lastname}</TableCell>

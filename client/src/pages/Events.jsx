@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -14,6 +14,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import AddEvent from '../pages/AddEvent';
+import { MdRowing } from 'react-icons/md';
 
 const useStyles = makeStyles({
   table: {
@@ -21,42 +22,75 @@ const useStyles = makeStyles({
   },
 });
 
-const events = [
-  {
-    id: 1,
-    title: 'Event 1',
-    date: '2022-01-01',
-    time: '10:00 AM',
-    venue: 'Venue 1',
-  },
-  {
-    id: 2,
-    title: 'Event 2',
-    date: '2022-02-01',
-    time: '11:00 AM',
-    venue: 'Venue 2',
-  },
-  {
-    id: 3,
-    title: 'Event 3',
-    date: '2022-02-01',
-    time: '11:30 AM',
-    venue: 'Venue 2',
-  },
-  // Add more events here
-];
+// const events = [
+//   {
+//     id: 1,
+//     title: 'Event 1',
+//     date: '2022-01-01',
+//     time: '10:00 AM',
+//     venue: 'Venue 1',
+//   },
+//   {
+//     id: 2,
+//     title: 'Event 2',
+//     date: '2022-02-01',
+//     time: '11:00 AM',
+//     venue: 'Venue 2',
+//   },
+//   {
+//     id: 3,
+//     title: 'Event 3',
+//     date: '2022-02-01',
+//     time: '11:30 AM',
+//     venue: 'Venue 2',
+//   },
+//   // Add more events here
+// ];
 
 const EventTable = () => {
   const classes = useStyles();
-  const [tableData, setTableData] = useState(events);
+  const [listOfEvents, setListOfEvents] = useState([]);
 
-  const handleDelete = (id) => {
-    setTableData(tableData.filter(event => event.id !== id));
-  };
+  const getEvents = async (e) => {
+    const request = "http://localhost:8000/events/"
+    
+    const response = await fetch(request, 
+        {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    const eventData = await response.json();
+    setListOfEvents(eventData);
+
+  }
+  getEvents();
+
+
+    const deleteEvent = async (rowID) => {
+    console.log(rowID);
+    const request = "http://localhost:8000/events/" + rowID;
+   
+    const response = await fetch(request, 
+        {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+     
+  }
 
   const handleEdit = (id) => {
     // Code for editing event
   };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <>
@@ -85,12 +119,12 @@ const EventTable = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData.map((event) => (
-              <TableRow key={event.id}>
-                <TableCell>{event.id}</TableCell>
-                <TableCell>{event.title}</TableCell>
-                <TableCell>{event.date} {event.time}</TableCell>
-                <TableCell>{event.venue}</TableCell>
+            {listOfEvents.map((row) => (
+              <TableRow key={row.id}>
+                <TableCell>{row.event_id}</TableCell>
+                <TableCell>{row.event_name}</TableCell>
+                <TableCell>{row.date_time}</TableCell>
+                <TableCell>{row.venue}</TableCell>
                 <TableCell>
                   <Fab style={{
                       marginRight: '22px'
@@ -100,7 +134,7 @@ const EventTable = () => {
                       className={classes.fab}
                       color="primary"
                       aria-label="edit" 
-                      onClick={() => handleEdit(event.id)}>
+                      onClick={() => handleEdit(row.id)}>
                     <EditIcon />
                   </Fab>
                   <Fab 
@@ -108,7 +142,7 @@ const EventTable = () => {
                       className={classes.fab}
                       color="secondary"
                       aria-label="delete" 
-                      onClick={() => handleDelete(event.id)}>
+                      onClick={() => deleteEvent(row.event_id)}>
                      <DeleteIcon />
                 </Fab>
               </TableCell>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,12 +7,32 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-function AddTeamModal() {
+function AddEventModal() {
   const [open, setOpen] = useState(false);
-  const [eventTitle, setEventTitle] = useState('');
+  const [eventName, setEventName] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventTime, setEventTime] = useState('');
   const [eventVenue, setEventVenue] = useState('');
+  const [userID, setUserID] = useState('');
+ 
+  useEffect(() => {
+  const getUserID = async () => {
+    try {
+      // Make a GET request to the API to obtain the user's ID
+      const response = await fetch('http://localhost:8000/users/' + localStorage.getItem('user_id'));
+      const data = await response.json();
+
+      // Set the userID state with the user's ID obtained from the API
+      setUserID(data.user_id);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  getUserID();
+}, []);
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -22,10 +42,32 @@ function AddTeamModal() {
     setOpen(false);
   };
 
-  const handleSave = (e) => {
-    e.preventDefault();
+  const handleSave = async (e) => {
+
+    // Logic to save the event data
+    e.preventDefault()
+    try {
+        const body = { eventName, eventDate, eventTime, eventVenue, userID}
+        console.log(body)
+        const response = await fetch("http://localhost:8000/events",  
+            {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+                                
+                
+            },
+            body: JSON.stringify(body)
+            }
+        )
+        const eventData = await response.json()
+            console.log('Success:', eventData)
+    }catch(error) {
+        console.log('Error:', error);
+      }
     // Logic to save the team data
     setOpen(false);
+    
   };
 
   return (
@@ -54,8 +96,8 @@ function AddTeamModal() {
             label="Event Title"
             type="text"
             fullWidth
-            value={eventTitle}
-            onChange={(e) => setEventTitle(e.target.value)}
+            value={eventName}
+            onChange={(e) => setEventName(e.target.value)}
           />
           <TextField
             margin="dense"
@@ -96,4 +138,4 @@ function AddTeamModal() {
   );
 }
 
-export default AddTeamModal;
+export default AddEventModal;

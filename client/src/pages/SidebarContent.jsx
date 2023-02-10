@@ -44,11 +44,11 @@ export const SidebarContent = [
         link: "./Reports"
     },
     
-    {
-        title: "Account Settings",
-        icon: <MdManageAccounts />,
-        link: "./AccountSettings"
-    }
+    // {
+    //     title: "Account Settings",
+    //     icon: <MdManageAccounts />,
+    //     link: "./AccountSettings"
+    // }
     
 ]
     
