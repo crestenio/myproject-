@@ -13,8 +13,8 @@ function AddTeamModal() {
   const [open, setOpen] = useState(false);
   const [teamName, setTeamName] = useState('');
   const [teamManager, setTeamManager] = useState('');
-  const [numPlayers, setNumPlayers] = useState('');
-
+  //const [numPlayers, setNumPlayers] = useState('');
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -43,16 +43,17 @@ function AddTeamModal() {
         )
         const data = await response.json()
             console.log('Success:', data)
+
     }catch(error) {
         console.log('Error:', error);
      }
     // Logic to save the team data
-    setOpen(false);
-   
+     setOpen(false);
   };
 
   return (
     <div>
+      
       <Button style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
@@ -107,6 +108,7 @@ function AddTeamModal() {
           </Button>
         </DialogActions>
       </Dialog>
+            
     </div>
   );
 }
