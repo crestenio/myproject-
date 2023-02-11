@@ -51,7 +51,7 @@ export default function SubmissionTable() {
   const [listOfSubmission, setListOfSubmission] = useState([]);
 
   const getSubmission = async (e) => {
-    const request = "http://localhost:8000/submission1/"
+    const request = "http://localhost:8000/teams1/"
     
     const response = await fetch(request, 
         {

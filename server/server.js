@@ -50,7 +50,7 @@ app.get('/teams1', (req, res)=>{
 })
 
 app.get('/teams2', (req, res)=>{
-    client.query(`Select * from teams`, (err, result)=>{
+    client.query(`SELECT * from teams`, (err, result)=>{
         if(!err){ 
             res.send(result.rows);
         }
@@ -190,14 +190,14 @@ app.post('/events', auth, (req, res)=> {
     const eventVenue = req.body["eventVenue"]
     const userID = req.user["user_id"]
 
-    const insertQuery = `INSERT INTO teams (event_name, date_time, venue, user_id) VALUES ('${eventName}', '${eventDate}', '${eventVenue}', '${userID}');`
+    const insertQuery = `INSERT INTO events (event_name, venue, date_time, user_id) VALUES ('${eventName}', '${eventVenue}', '${eventDate}', '${userID}');`
     console.log(userID)
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")
         console.log(response)
     })
     .catch((err) => {
-        console.log(err)
+        console.log("1")
     })
     console.log(req.body);
     res.send("Response Received: " + req.body);

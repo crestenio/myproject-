@@ -6,6 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import AddPlayersModal from './AddPlayers';
+import {useNavigate} from 'react-router-dom';
 
 function AddTeamModal() {
   const [open, setOpen] = useState(false);
@@ -22,7 +24,7 @@ function AddTeamModal() {
   };
 
   const handleSave = async (e) => {
-
+    
     // Logic to save the team data
     e.preventDefault()
     try {
@@ -43,10 +45,10 @@ function AddTeamModal() {
             console.log('Success:', data)
     }catch(error) {
         console.log('Error:', error);
-      }
+     }
     // Logic to save the team data
     setOpen(false);
-    
+   
   };
 
   return (
@@ -99,7 +101,8 @@ function AddTeamModal() {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSave} color="primary">
+          <Button
+           onClick={handleSave} color="primary">
             Save
           </Button>
         </DialogActions>

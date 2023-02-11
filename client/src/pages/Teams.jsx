@@ -31,6 +31,7 @@ export default function BasketballSystemTable() {
   const getTeams = async (e) => {
     const request = "http://localhost:8000/teams1/" 
     
+    
     const response = await fetch(request, 
         {
         method: 'GET',
@@ -49,8 +50,6 @@ export default function BasketballSystemTable() {
     //   });
     // }
     
-    
-
   }
   getTeams();
 

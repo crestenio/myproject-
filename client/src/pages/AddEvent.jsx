@@ -15,25 +15,7 @@ function AddEventModal() {
   const [eventVenue, setEventVenue] = useState('');
   const [userID, setUserID] = useState('');
  
-  useEffect(() => {
-  const getUserID = async () => {
-    try {
-      // Make a GET request to the API to obtain the user's ID
-      const response = await fetch('http://localhost:8000/users/' + localStorage.getItem('user_id'));
-      const data = await response.json();
-
-      // Set the userID state with the user's ID obtained from the API
-      setUserID(data.user_id);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
-  getUserID();
-}, []);
-
-
-
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -47,15 +29,15 @@ function AddEventModal() {
     // Logic to save the event data
     e.preventDefault()
     try {
-        const body = { eventName, eventDate, eventTime, eventVenue, userID}
+        const body = { eventName, eventDate, eventVenue, user_id: localStorage.getItem('user_id')}
         console.log(body)
         const response = await fetch("http://localhost:8000/events",  
             {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-                                
-                
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + localStorage.getItem("token") 
+        
             },
             body: JSON.stringify(body)
             }
