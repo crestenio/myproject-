@@ -9,21 +9,23 @@ import {
  
 } from "react-router-dom"
 
-//import SignInOutContainer from './containers/index';
-import Dashboard from './components/Dashboard';
-import Events from './pages/Events';
-import Teams from './pages/Teams';
-import Players from './pages/Players';
-import Schedule from './pages/Schedule.jsx';
-import Submission from './pages/Submission.jsx';
+import AdminDash from './dashboard/AdminDash';
+//import UserDash from './dashboard/UserDash';
+import Events from './crud/admin/Events';
+import Teams from './crud/admin/Teams';
+import Players from './crud/admin/Players';
+import Schedule from './crud/admin/Schedule';
+import Submission from './crud/admin/Submission';
 import Logout from './components/Logout';
-import Sidebar from './components/Sidebar';
-import Home from "./components/Home";
+import SidebarAdmin from './components/SidebarAdmin';
+import SidebarUser from './components/SidebarUser';
+import Home from "./pages/Home";
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Footer from './pages/Footer';
-import Reports from './pages/Reports';
-import AccountSettings from './pages/AccountSettings';
+import FAQ from './pages/FAQ';
+import Reports from './crud/admin/Reports';
+import AccountSettings from './components/AccountSettings';
 
 
 function App() {
@@ -63,8 +65,8 @@ function App() {
                 <Navigate to='/Home'/>
               ) } ></Route>
               <Route path='/Footer' element={<Footer/>} /> 
-              <Route path='/Dashboard' element={<Dashboard/>} /> 
-              <Route path='/Sidebar' element={<Sidebar/>} /> 
+              <Route path='/AdminDash' element={<AdminDash/>} /> 
+              <Route path='/SidebarAdmin' element={<SidebarAdmin/>} /> 
               <Route path='/Events' element={<Events/>} />
               <Route path='/Teams' element={<Teams/>} />
               <Route path='/Players' element={<Players/>} />
@@ -72,6 +74,7 @@ function App() {
               <Route path='/Submission' element={<Submission/>} /> 
               <Route path='/Reports' element={<Reports/>} /> 
               <Route path='/AccountSettings' element={<AccountSettings/>} /> 
+              <Route path='/FAQ' element={<FAQ/>} /> 
             </Routes>
           </div>
         </Router>

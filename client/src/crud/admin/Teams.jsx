@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
+import SidebarAdmin from '../../components/SidebarAdmin';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,7 +10,7 @@ import {Paper, TableContainer, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import AddTeamModal from '../pages/AddTeams';
+import AddTeamModal from '../admin/AddTeams';
 import Fab from '@material-ui/core/Fab';
 
 
@@ -126,7 +126,7 @@ export default function BasketballSystemTable() {
   return (
     <>
     
-      <Sidebar/>
+      <SidebarAdmin/>
     <div>
         
         <TableContainer component={Paper} style={{

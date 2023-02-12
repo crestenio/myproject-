@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Sidebar from '../components/Sidebar';
+import SidebarAdmin from '../components/SidebarAdmin';
 import {
   Card,
   CardContent,
@@ -71,7 +71,7 @@ const BasketballSystemDashboard = () => {
 
   return (
     <>
-    <Sidebar/>
+    <SidebarAdmin/>
     <div className={classes.root} style={{
                         
                         marginBottom: '14px',

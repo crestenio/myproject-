@@ -17,6 +17,119 @@ app.use(cors());
 app.use(bodyParser.json()); 
 
 
+//Routes Login Register Page//
+
+app.post('/Signup', async (req, res) => {
+    try {
+
+        //take the username and password from the req.body
+        const {
+            firstname,
+            lastname,
+            username,
+            password
+            
+        } = req.body
+
+        //Check if the user is already exist
+
+        const user = await client.query(`SELECT * FROM users WHERE
+        username = $1`, [username])
+
+        if (user.rows.length > 0) {
+            res.status(401).send("User already exists")
+        }
+
+        //Setup Bcrypt for password hashing
+
+        const saltRound = 10;
+        const salt = await bcrypt.genSalt(saltRound);
+        const bcryptPassword = await bcrypt.hash(password, salt);
+        //Add the new user into the database
+        //generate the uuid using the uuidv4() function
+        const newUser = await client.query(`
+        INSERT INTO users (firstname, lastname, username, password)
+        VALUES ($1, $2, $3, $4) RETURNING *
+        `, [firstname, lastname, username, bcryptPassword])
+
+        //generate and return the JWT token
+        const token = generateJWT(newUser.rows[0])
+
+        res.json({ token })
+        
+    } catch (error) {
+
+        console.log(error.message)
+        res.status(500).send(error.message)
+    }
+
+})
+
+app.post('/Login', async (req, res) => {
+    try {
+            // console.log('Login')
+        //take the username and password from the req.body
+        const {
+            username,
+            password
+        } = req.body
+
+        //Check if the user is not existing
+        const user = await client.query(`SELECT * FROM users WHERE
+        username = $1`, [username])
+        console.log(user);
+
+        if (user.rows.length < 1) {
+            console.log("user found")
+            console.log(user.rows[0])
+            return res.json('User does not exists')
+        }
+        else{
+            console.log('with user')
+            console.log(user.rows[0])
+            const validPassword = await bcrypt.compare(password, user.rows[0].password)
+        if (!validPassword) {
+            return res.json('Password incorrect')
+        }
+        }
+
+        //generate and return the JWT
+        const token = generateJWT(user.rows[0])
+        res.json({
+            token
+        })
+
+        const data = {
+            token,
+            user_id: user.rows[0].user_id,
+            username: user.rows[0].username
+        }
+        res.json(data)
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({
+            msg: "Unauthenticated"
+        });
+    }
+})
+
+//provide the auth middleware
+app.get('/verify', auth, async (req, res) => {
+    try {
+
+        //return the user object
+        res.json(req.user)
+    } catch (error) {
+        console.error(err.message);
+        res.status(500).send({
+            msg: "Unauthenticated"
+        });
+    }
+})
+
+//loginend//
+
 
 // get queries
 
@@ -461,112 +574,6 @@ app.delete('/submission/:submission_id', (req, res)=> {
     })
     client.end;
 })
-
-//Routes Login Register Page//
-
-app.post('/Signup', async (req, res) => {
-    try {
-
-        //take the username and password from the req.body
-        const {
-            firstname,
-            lastname,
-            username,
-            password
-            
-        } = req.body
-
-        //Check if the user is already exist
-
-        const user = await client.query(`SELECT * FROM users WHERE
-        username = $1`, [username])
-
-        if (user.rows.length > 0) {
-            res.status(401).send("User already exists")
-        }
-
-        //Setup Bcrypt for password hashing
-
-        const saltRound = 10;
-        const salt = await bcrypt.genSalt(saltRound);
-        const bcryptPassword = await bcrypt.hash(password, salt);
-        //Add the new user into the database
-        //generate the uuid using the uuidv4() function
-        const newUser = await client.query(`
-        INSERT INTO users (firstname, lastname, username, password)
-        VALUES ($1, $2, $3, $4) RETURNING *
-        `, [firstname, lastname, username, bcryptPassword])
-
-        //generate and return the JWT token
-        const token = generateJWT(newUser.rows[0])
-
-        res.json({ token })
-        
-    } catch (error) {
-
-        console.log(error.message)
-        res.status(500).send(error.message)
-    }
-
-})
-
-app.post('/Login', async (req, res) => {
-    try {
-            console.log('Login')
-        //take the username and password from the req.body
-        const {
-            username,
-            password
-        } = req.body
-
-        //Check if the user is not existing
-        const user = await client.query(`SELECT * FROM users WHERE
-        username = $1`, [username])
-        console.log(user);
-
-        if (user.rows.length < 1) {
-            console.log("user found")
-            console.log(user.rows[0])
-            return res.json('User does not exists')
-        }
-        else{
-            console.log('with user')
-            console.log(user.rows[0])
-            const validPassword = await bcrypt.compare(password, user.rows[0].password)
-        if (!validPassword) {
-            return res.json('Password incorrect')
-        }
-        }
-
-        //generate and return the JWT
-        const token = generateJWT(user.rows[0])
-        res.json({
-            token
-        })
-
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send({
-            msg: "Unauthenticated"
-        });
-    }
-})
-
-//provide the auth middleware
-app.get('/verify', auth, async (req, res) => {
-    try {
-
-        //return the user object
-        res.json(req.user)
-    } catch (error) {
-        console.error(err.message);
-        res.status(500).send({
-            msg: "Unauthenticated"
-        });
-    }
-})
-
-//loginend//
 
 
 app.listen(PORT, ()=>{

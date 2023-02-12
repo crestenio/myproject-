@@ -47,13 +47,18 @@ const Login = ({setAuth})=>{
 
             const parseRes = await response.json()
                 console.log(parseRes)
-            if (parseRes.token) {
+            if (parseRes.role === "admin") {
                 //localstorage
                 localStorage.setItem("token", parseRes.token)
                 setAuth(true)
+                window.location.href = "/AdminDash"
+            } else if (parseRes.role === "user") {
+                localStorage.setItem("token", parseRes.token)
+                setAuth(true)
+                window.location.href = "/UserDash"
             } else {
                 setAuth(false)
-                console.log("Something wrong")
+                console.log("Something went wrong")
             }
 
         } catch (error) {

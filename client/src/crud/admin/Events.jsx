@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
+import SidebarAdmin from '../../components/SidebarAdmin';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -19,7 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
-import AddEvent from '../pages/AddEvent';
+import AddEvent from './AddEvent';
 import { Snackbar } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -132,7 +132,7 @@ const EventTable = () => {
 
   return (
     <>
-    <Sidebar/>
+    <SidebarAdmin/>
 
     <Snackbar 
       anchorOrigin={{

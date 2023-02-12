@@ -8,10 +8,9 @@ import {AiFillSchedule} from 'react-icons/ai';
 import {TbReportSearch} from 'react-icons/tb';
 //import DashboardContent from './DashboardContent';
 import {MdManageAccounts} from 'react-icons/md'
-//import * as RiIcons from 'react-icons/ri';
-//import * as IoIcons from 'react-icons/io';
 
-export const SidebarContent = [
+
+export const SidebarContentUser = [
     {
         title: "Dashboard",
         icon: <RiDashboardFill />,
@@ -38,11 +37,11 @@ export const SidebarContent = [
         link: "./Submission"
     },
 
-    {
-        title: "Reports",
-        icon: <TbReportSearch />,
-        link: "./Reports"
-    },
+    // {
+    //     title: "Reports",
+    //     icon: <TbReportSearch />,
+    //     link: "./Reports"
+    // },
     
     // {
     //     title: "Account Settings",

@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Footer from '../pages/Footer';
+import Navbar from '../components/Navbar';
+import Footer from './Footer';
 const Home = () => {
     return(
         <>
@@ -14,7 +14,7 @@ const Home = () => {
 
                 </p>
                 <a href='Signup'><button  className="header-btn"
-                    >Sign Up 
+                    >Register Now 
                 </button></a>
                 
             </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 import '../App.css'
-import { SidebarContent } from '../pages/SidebarContent';
-import {FiAlignJustify, FiLogOut} from 'react-icons/fi';
+import { SidebarContentAdmin } from './SidebarContentAdmin';
+import {FiLogOut} from 'react-icons/fi';
 
 
-function Sidebar () {
+function SidebarAdmin () {
     const handleLogout = () => {
         localStorage.removeItem('user.token')
         localStorage.removeItem('user.user_id')
@@ -15,7 +15,7 @@ function Sidebar () {
         <>
             <div className='Sidebar-container'>
                 <ul className="Sidebar-list">
-                    {SidebarContent.map((val, key) => { 
+                    {SidebarContentAdmin.map((val, key) => { 
                     return (
                         <li className="li-row" key={key} id={window.location.pathname === val.link ? "active" : ""} 
                         onClick={() =>{window.location.pathname = val.link}}>
@@ -37,4 +37,4 @@ function Sidebar () {
     );
 }
 
-export default Sidebar;
+export default SidebarAdmin;

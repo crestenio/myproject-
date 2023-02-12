@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
+import SidebarAdmin from '../../components/SidebarAdmin';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -74,7 +74,7 @@ export default function ScheduleTable() {
   return (
     <>
         <div>
-            <Sidebar/>
+            <SidebarAdmin/>
             <TableContainer component={Paper} style={{
                         backgroundColor: '#fff',
                         marginBottom: '14px',
@@ -94,7 +94,7 @@ export default function ScheduleTable() {
                 <TableCell align="center">Team Names</TableCell>
                 <TableCell align="center">Venue</TableCell>
                 <TableCell align="center">Date and Time</TableCell>
-                <TableCell align="center"></TableCell>
+                <TableCell align="center">Actions</TableCell>
             </TableRow>
             </TableHead>
             <TableBody>

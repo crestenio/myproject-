@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
-import AddSubmissionModal from '../pages/AddSubmission';
+import SidebarAdmin from '../../components/SidebarAdmin';
+import AddSubmissionModal from '../admin/AddSubmission';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -102,7 +102,7 @@ export default function SubmissionTable() {
     <>
     <div>
         
-        <Sidebar/>
+        <SidebarAdmin/>
         <TableContainer component={Paper} style={{
                         backgroundColor: '#fff',
                         color: '#000',
@@ -123,7 +123,7 @@ export default function SubmissionTable() {
             <TableCell align="center">Team Name</TableCell>
             <TableCell align="center">Team Manager</TableCell>
             <TableCell align="center">No of Players</TableCell>
-            <TableCell align="center"></TableCell>
+            <TableCell align='center'>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../components/Sidebar';
-import AddPlayersModal from '../pages/AddPlayers';
+import SidebarAdmin from '../../components/SidebarAdmin';
+import AddPlayersModal from '../admin/AddPlayers';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -140,7 +140,7 @@ export default function PlayerTable() {
                         width: '80%',
                         marginLeft: '240px'
                     }}>
-        <Sidebar/>
+        <SidebarAdmin/>
         <h2>Basketball System Players Information</h2>
         <AddPlayersModal />
       </TableContainer>
