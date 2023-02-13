@@ -10,7 +10,7 @@ import {
 } from "react-router-dom"
 
 import AdminDash from './dashboard/AdminDash';
-//import UserDash from './dashboard/UserDash';
+import UserDash from './dashboard/UserDash';
 import Events from './crud/admin/Events';
 import Teams from './crud/admin/Teams';
 import Players from './crud/admin/Players';
@@ -51,12 +51,13 @@ function App() {
           
           <Route path='/' element={<Home/>} />
           <Route path='/Home' element={<Home/>} />
+          <Route path='/FAQ' element={<FAQ/>} /> 
         </Routes>
           <div>
             <Routes>
             
               <Route path='/Login' element={!isAuthenticated ? (<Login setAuth={setAuth}/> ): (
-                <Navigate to='/Dashboard'/>
+                <Navigate to='/AdminDash'/>
               ) } ></Route>
               <Route path='/Signup' element={!isAuthenticated ? (<Signup setAuth={setAuth}/> ): (
                 <Navigate to='/Signup'/>
@@ -64,9 +65,12 @@ function App() {
               <Route path='/Logout' element={!isAuthenticated ? (<Logout setAuth={setAuth}/> ): (
                 <Navigate to='/Home'/>
               ) } ></Route>
+
               <Route path='/Footer' element={<Footer/>} /> 
               <Route path='/AdminDash' element={<AdminDash/>} /> 
+              <Route path='/UserDash' element={<UserDash/>} /> 
               <Route path='/SidebarAdmin' element={<SidebarAdmin/>} /> 
+              <Route path='/SidebarUser' element={<SidebarUser/>} /> 
               <Route path='/Events' element={<Events/>} />
               <Route path='/Teams' element={<Teams/>} />
               <Route path='/Players' element={<Players/>} />
@@ -74,7 +78,7 @@ function App() {
               <Route path='/Submission' element={<Submission/>} /> 
               <Route path='/Reports' element={<Reports/>} /> 
               <Route path='/AccountSettings' element={<AccountSettings/>} /> 
-              <Route path='/FAQ' element={<FAQ/>} /> 
+              
             </Routes>
           </div>
         </Router>

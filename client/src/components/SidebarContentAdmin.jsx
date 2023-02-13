@@ -14,7 +14,7 @@ export const SidebarContentAdmin = [
     {
         title: "Dashboard",
         icon: <RiDashboardFill />,
-        link: "/Dashboard"
+        link: "/AdminDash"
     },
     {
         title: "Events",

@@ -11,6 +11,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import TextField from '@material-ui/core/TextField';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
 import { Snackbar } from '@material-ui/core';
 
 
@@ -27,10 +33,23 @@ const useStyles = makeStyles({
 });
 
 
-export default function PlayerTable() {
+const PlayerTable = () => {
   const classes = useStyles();
   const [listOfPlayers, setListOfPlayers] = useState([]);
+  const [editingPlayer, setEditingPlayer] = useState({
+    player_id: '',
+    firstname: '',
+    lastname: '',
+    middlename: '',
+    gender: '',
+    age: '',
+    birthday: '',
+    address: '',
+    phone: ''
+  });
  // const [adder, setAdder] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
   
   const getPlayers = async (e) => {
     const request = "http://localhost:8000/team/players/" + localStorage.getItem("team_id");
@@ -43,15 +62,15 @@ export default function PlayerTable() {
         }
         }
     )
-    const data2 = await response.json();
-    setListOfPlayers(data2);
+    const playerData = await response.json();
+    setListOfPlayers(playerData);
   }
-  getPlayers();
+  useEffect(() => {
+    getPlayers();
+  }, []);
+  
 
   //Toastify//
-
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
 
   const handleClose = (event, reason) => {
   if (reason === 'clickaway') {
@@ -84,32 +103,39 @@ export default function PlayerTable() {
     }
   }
 
-    
 
-  const editPlayer = async (rowID) => {
-    console.log(rowID);
-    const request = "http://localhost:8000/players/" +rowID;
-   
-    const response = await fetch(request, 
-        {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-        }
-    )
+  const handleEdit = (event) => {
+    setEditingPlayer({
+      player_id: event.player_id,
+      firstname: event.firstname,
+      lastname: event.lastname,
+      middlename: event.middlename,
+      gender: event.gender,
+      age: event.age,
+      birthday: event.birthday,
+      address: event.address,
+      phone: event.phone
+    });
+  };
 
+  const handleSave = async () => {
+    const request = "http://localhost:8000/players/" + editingPlayer.player_id;
+    const response = await fetch(request, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editingPlayer)
+    });
     if (response.status === 200) {
-      setMessage('Player updated successfully!');
+      setMessage("Player updated successfully!");
       setOpen(true);
       getPlayers();
-  } else {
-      setMessage('Error updating player!');
+    } else {
+      setMessage("Error updating player!"); 
       setOpen(true);
-  }
-    
-  }
-
+    }
+  };
   // const handleViewPlayers = (id) => {
   //   console.log(`View players for submission ID ${id}`);
   // };
@@ -147,7 +173,7 @@ export default function PlayerTable() {
       
     <TableContainer component={Paper} style={{ width: '80%',
                                                marginLeft: '240px' }} >
-      <Table className={classes.table} aria-label="submission table">
+      <Table className={classes.table} aria-label="player table">
         <TableHead>
           <TableRow>
             <TableCell>Player ID</TableCell>
@@ -163,27 +189,26 @@ export default function PlayerTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {listOfPlayers.map((row) => (
-            <TableRow key={row.id}>
+          {listOfPlayers.map((event, index) => (
+            <TableRow key={index}>
               <TableCell component="th" scope="row">
-                {row.player_id}
+                {event.player_id}
               </TableCell>
-              <TableCell align="center">{row.firstname}</TableCell>
-              <TableCell align="center">{row.lastname}</TableCell>
-              <TableCell align="center">{row.middlename}</TableCell>
-              <TableCell align="center">{row.gender}</TableCell>
-              <TableCell align="center">{row.age}</TableCell>
-              <TableCell align="center">{row.birthday}</TableCell>
-              <TableCell align="center">{row.address}</TableCell>
-              <TableCell align="center">{row.phone}</TableCell>
+              <TableCell align="center">{event.firstname}</TableCell>
+              <TableCell align="center">{event.lastname}</TableCell>
+              <TableCell align="center">{event.middlename}</TableCell>
+              <TableCell align="center">{event.gender}</TableCell>
+              <TableCell align="center">{event.age}</TableCell>
+              <TableCell align="center">{event.birthday}</TableCell>
+              <TableCell align="center">{event.address}</TableCell>
+              <TableCell align="center">{event.phone}</TableCell>
               <TableCell align="center">
                 <Fab
                   size="small"
                   color="primary"
                   className={classes.fab}
                   aria-label="edit"
-                  onClick={() => editPlayer(row.player_id)}
-                >
+                  onClick={() => handleEdit(event)}>
                   <EditIcon />
                 </Fab>
                 <Fab
@@ -191,7 +216,7 @@ export default function PlayerTable() {
                   color="secondary"
                   className={classes.fab}
                   aria-label="delete"
-                  onClick={() => deletePlayer(row.player_id)}
+                  onClick={() => deletePlayer(event.player_id)}
                 >
                  <DeleteIcon />
                 </Fab>
@@ -203,8 +228,72 @@ export default function PlayerTable() {
         </Table>
       
       </TableContainer>
+      <Dialog open={editingPlayer.player_id !== ''} onClose={() => setEditingPlayer({player_id: '', firstname: '', lastname: '', middlename: '', gender: '', age: '', birthday: '', address: '', phone: ''})}>
+        <DialogTitle>Edit Player</DialogTitle>
+          <DialogContent>
+            <TextField
+            label="First Name"
+            value={editingPlayer.firstname}
+            onChange={(e) => setEditingPlayer({...editingPlayer, firstname: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Last Name"
+            value={editingPlayer.lastname}
+            onChange={(e) => setEditingPlayer({...editingPlayer, lastname: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Middle Name"
+            value={editingPlayer.middlename}
+            onChange={(e) => setEditingPlayer({...editingPlayer, middlename: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Gender"
+            value={editingPlayer.gender}
+            onChange={(e) => setEditingPlayer({...editingPlayer, gender: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Age"
+            value={editingPlayer.age}
+            onChange={(e) => setEditingPlayer({...editingPlayer, gender: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Birthday"
+            type="date"
+            value={editingPlayer.birthday}
+            onChange={(e) => setEditingPlayer({...editingPlayer, birthday: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Address"
+            value={editingPlayer.address}
+            onChange={(e) => setEditingPlayer({...editingPlayer, address: e.target.value})}
+            fullWidth
+            />
+            <TextField
+            label="Phone"
+            value={editingPlayer.phone}
+            onChange={(e) => setEditingPlayer({...editingPlayer, phone: e.target.value})}
+            fullWidth
+            />
+        </DialogContent>
+      <DialogActions>
+            <Button onClick={() => setEditingPlayer({player_id: '', firstname: '', lastname: '', middlename: '', gender: '', age: '', birthday: '', address: '', phone: ''})} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleSave} color="primary">
+              Save
+            </Button>
+        </DialogActions>
+      </Dialog>
      
     </div>
     </>
   );
 }
+
+export default PlayerTable;

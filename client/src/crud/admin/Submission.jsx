@@ -25,26 +25,6 @@ const useStyles = makeStyles({
   },
 });
 
-// const data = [
-//   {
-//     id: 1,
-//     teamName: 'Team A',
-//     manager: 'John Doe',
-//     players: 10,
-//   },
-//   {
-//     id: 2,
-//     teamName: 'Team B',
-//     manager: 'Jane Doe',
-//     players: 12,
-//   },
-//   {
-//     id: 3,
-//     teamName: 'Team C',
-//     manager: 'James Doe',
-//     players: 15,
-//   },
-// ];
 
 export default function SubmissionTable() {
   const classes = useStyles();
@@ -133,8 +113,8 @@ export default function SubmissionTable() {
                 {row.submission_id}
               </TableCell>
               <TableCell align="center">{row.team_name}</TableCell>
-              <TableCell align="center">{row.numofplayers}</TableCell>
               <TableCell align="center">{row.team_manager}</TableCell>
+              <TableCell align="center">{row.numofplayers}</TableCell>
               <TableCell align="center">
                 <Fab
                   size="small"
@@ -161,9 +141,13 @@ export default function SubmissionTable() {
                     }}
         
                         color="primary"
-                        onClick={() => handleViewPlayers(row.submission_id)}
+                        onClick={() => handleViewPlayers(row.team_id)}
                       >
-                        View Players
+                        <a href="players" style={{
+                            backgroundColor: '#eb8045',
+                            color: '#fff',
+                          }}>View Players</a>
+                      
                       </Button>
               </TableCell>
             </TableRow>

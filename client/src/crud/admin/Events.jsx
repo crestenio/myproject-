@@ -161,11 +161,11 @@ const EventTable = () => {
         <Table className={classes.table} aria-label="event table">
           <TableHead>
             <TableRow>
-              <TableCell>Event ID</TableCell>
-              <TableCell>Event Title</TableCell>
-              <TableCell>Event Venue</TableCell>
-              <TableCell>Event Date and Time</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell >Event ID</TableCell>
+              <TableCell >Event Title</TableCell>
+              <TableCell >Event Venue</TableCell>
+              <TableCell >Event Date and Time</TableCell>
+              <TableCell >Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -175,9 +175,9 @@ const EventTable = () => {
                   {event.event_id}
 
                 </TableCell>
-                <TableCell>{event.event_name}</TableCell>
-                <TableCell>{event.venue}</TableCell>
-                <TableCell>{event.date_time}</TableCell>
+                <TableCell >{event.event_name}</TableCell>
+                <TableCell >{event.venue}</TableCell>
+                <TableCell >{event.date_time}</TableCell>
                 
                 <TableCell>
                   <Fab style={{

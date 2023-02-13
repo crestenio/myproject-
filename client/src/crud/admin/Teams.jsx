@@ -8,10 +8,15 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import {Paper, TableContainer, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddTeamModal from '../admin/AddTeams';
 import Fab from '@material-ui/core/Fab';
+import { Snackbar } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -26,6 +31,16 @@ export default function BasketballSystemTable() {
   const [listOfTeams, setListOfTeams] = useState([]);
   //const [listOfTeamsWithPlayers, setListOfTeamsWithPlayers] = useState([]);
   //const [teamID, setTeamID] = useState({});
+  const [editingTeams, setEditingTeams] = useState({
+    team_id: '',
+    team_name: '',
+    team_manager: ''
+  });
+
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+
+
   const getTeams = async (e) => {
     const request = "http://localhost:8000/teams1/" 
     
@@ -49,7 +64,20 @@ export default function BasketballSystemTable() {
     // }
     
   }
+  useEffect(() => {
   getTeams();
+  }, []);
+
+    //wITHToastify//
+
+
+  const handleClose = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpen(false);
+  };
 
   // const getNumberOfPlayersPerTeam = async (e) => {
   //   const request = "http://localhost:8000/teams1/" 
@@ -82,8 +110,49 @@ export default function BasketballSystemTable() {
         }
         }
     )
+    if (response.status === 200) {
+      setMessage("Team deleted successfully!");
+        setOpen(true)
+        getTeams()
+      
+    } else {
+      setMessage("Error deleting team!") 
+        setOpen(true)
+    }
      
   }
+
+  const handleEdit = (event) => {
+    setEditingTeams({
+      team_id: event.team_id,
+      team_name: event.team_name,
+      team_manager: event.team_manager
+    });
+  };
+
+  const handleSave = async () => {
+    const request = "http://localhost:8000/teams/" + editingTeams.team_id;
+    const response = await fetch(request, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(editingTeams)
+    });
+    if (response.status === 200) {
+      setMessage("Team updated successfully!");
+      setOpen(true);
+      getTeams();
+    } else {
+      setMessage("Error updating team!"); 
+      setOpen(true);
+    }
+  };
+
+   useEffect(() => {
+    getTeams();
+  }, []);
+
 
   
     // const [searchText, setSearchText] = useState('');
@@ -92,26 +161,6 @@ export default function BasketballSystemTable() {
     // );
     
     // const [tableData, setTableData] = useState(teams);
-
-    //modify button
-
-    // const [selectedTeam, setSelectedTeam] = useState({});
-
-    const handleEdit = (team) => {
-      // setSelectedTeam(team);
-      // setOpen(true);
-    };
-
-    // const handleSave = (e) => {
-    //   e.preventDefault();
-    //   // Logic to save the team data
-    //   if (Object.keys(selectedTeam).length) {
-    //     // update existing team data
-    //   } else {
-    //     // add new team data
-    //   }
-    //   setOpen(false);
-    // };
 
   const handleViewPlayers = (id) => {
     console.log(`View players for Team ID ${id}`);
@@ -127,6 +176,17 @@ export default function BasketballSystemTable() {
     <>
     
       <SidebarAdmin/>
+      <Snackbar 
+      anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open} 
+        onClose={handleClose}
+        message={message}
+        autoHideDuration={3000}
+        
+        />
     <div>
         
         <TableContainer component={Paper} style={{
@@ -162,14 +222,14 @@ export default function BasketballSystemTable() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {listOfTeams.map((row) => (
-                    <TableRow key={row.id}>
+                  {listOfTeams.map((event, index) => (
+                    <TableRow key={index}>
                       <TableCell component="th" scope="row">
-                        {row.team_id}
+                        {event.team_id}
                       </TableCell>
-                      <TableCell>{row.team_name}</TableCell>
-                      <TableCell>{row.numofplayers}</TableCell>
-                      <TableCell>{row.team_manager}</TableCell>
+                      <TableCell>{event.team_name}</TableCell>
+                      <TableCell>{event.numofplayers}</TableCell>
+                      <TableCell>{event.team_manager}</TableCell>
                       
                       <TableCell>
                         <Fab style={{
@@ -180,7 +240,7 @@ export default function BasketballSystemTable() {
                              className={classes.fab}
                              color="primary"
                              aria-label="edit" 
-                             onClick={() => handleEdit(row.team_id)}>
+                             onClick={() => handleEdit(event)}>
                           <EditIcon />
                         </Fab>
                         <Fab style={{
@@ -191,7 +251,7 @@ export default function BasketballSystemTable() {
                              className={classes.fab}
                              color="secondary"
                              aria-label="delete" 
-                             onClick={() => deleteTeam(row.team_id)}>
+                             onClick={() => deleteTeam(event.team_id)}>
                           <DeleteIcon />
                         </Fab>
                         <Button style={{
@@ -200,7 +260,7 @@ export default function BasketballSystemTable() {
                         }}
                           variant="contained"
                           color="primary"
-                          onClick={() => handleViewPlayers(row.team_id)}
+                          onClick={() => handleViewPlayers(event.team_id)}
                         >
                           <a href="players" style={{
                             backgroundColor: '#eb8045',
@@ -213,6 +273,31 @@ export default function BasketballSystemTable() {
                 </TableBody>
               </Table>
             </TableContainer>
+            <Dialog open={editingTeams.team_id !== ''} onClose={() => setEditingTeams({team_id: '', team_name: '', team_manager: ''})}>
+              <DialogTitle>Edit Team</DialogTitle>
+                <DialogContent>
+                  <TextField
+                  label="Team Name"
+                  value={editingTeams.team_name}
+                  onChange={(e) => setEditingTeams({...editingTeams, team_name: e.target.value})}
+                  fullWidth
+                  />
+                  <TextField
+                  label="Team Manager"
+                  value={editingTeams.team_manager}
+                  onChange={(e) => setEditingTeams({...editingTeams, team_manager: e.target.value})}
+                  fullWidth
+                  />
+              </DialogContent>
+            <DialogActions>
+                  <Button onClick={() => setEditingTeams({team_id: '', team_name: '', team_manager: ''})} color="primary">
+                    Cancel
+                  </Button>
+                  <Button onClick={handleSave} color="primary">
+                    Save
+                  </Button>
+              </DialogActions>
+      </Dialog>
           
       </div>
     </>

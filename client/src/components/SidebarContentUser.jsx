@@ -14,7 +14,7 @@ export const SidebarContentUser = [
     {
         title: "Dashboard",
         icon: <RiDashboardFill />,
-        link: "/Dashboard"
+        link: "/UserDash"
     },
     {
         title: "Events",

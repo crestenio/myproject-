@@ -17,7 +17,7 @@ app.use(cors());
 app.use(bodyParser.json()); 
 
 
-//Routes Login Register Page//
+//Routes Login Register Page Query//
 
 app.post('/Signup', async (req, res) => {
     try {
@@ -48,9 +48,9 @@ app.post('/Signup', async (req, res) => {
         //Add the new user into the database
         //generate the uuid using the uuidv4() function
         const newUser = await client.query(`
-        INSERT INTO users (firstname, lastname, username, password)
-        VALUES ($1, $2, $3, $4) RETURNING *
-        `, [firstname, lastname, username, bcryptPassword])
+        INSERT INTO users (firstname, lastname, username, password, role)
+        VALUES ($1, $2, $3, $4, $5) RETURNING *
+        `, [firstname, lastname, username, bcryptPassword, "user"])
 
         //generate and return the JWT token
         const token = generateJWT(newUser.rows[0])
@@ -95,14 +95,14 @@ app.post('/Login', async (req, res) => {
 
         //generate and return the JWT
         const token = generateJWT(user.rows[0])
-        res.json({
-            token
-        })
 
         const data = {
             token,
             user_id: user.rows[0].user_id,
-            username: user.rows[0].username
+            username: user.rows[0].username,
+            role: user.rows[0].role,
+        
+            
         }
         res.json(data)
 
@@ -447,7 +447,6 @@ app.put('/teams/:team_id', (req, res)=> {
     let team = req.body;
     let updateQuery = `update teams
                        set team_name = '${team.team_name}',
-                       no_of_players = '${team.no_of_players}',
                        team_manager = '${team.team_manager}'
                        where team_id = ${team.team_id}`
 
