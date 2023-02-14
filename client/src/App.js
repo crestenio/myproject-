@@ -12,10 +12,13 @@ import {
 import AdminDash from './dashboard/AdminDash';
 import UserDash from './dashboard/UserDash';
 import Events from './crud/admin/Events';
+import ViewEvents from './crud/user/ViewEvents';
 import Teams from './crud/admin/Teams';
 import Players from './crud/admin/Players';
 import Schedule from './crud/admin/Schedule';
+import ViewSchedule from './crud/user/ViewSchedule';
 import Submission from './crud/admin/Submission';
+import TeamSubmission from './crud/user/TeamSubmission';
 import Logout from './components/Logout';
 import SidebarAdmin from './components/SidebarAdmin';
 import SidebarUser from './components/SidebarUser';
@@ -72,10 +75,13 @@ function App() {
               <Route path='/SidebarAdmin' element={<SidebarAdmin/>} /> 
               <Route path='/SidebarUser' element={<SidebarUser/>} /> 
               <Route path='/Events' element={<Events/>} />
+              <Route path='/ViewEvents' element={<ViewEvents/>} />
               <Route path='/Teams' element={<Teams/>} />
               <Route path='/Players' element={<Players/>} />
               <Route path='/Schedule' element={<Schedule/>} />
+              <Route path='/ViewSchedule' element={<ViewSchedule/>} />
               <Route path='/Submission' element={<Submission/>} /> 
+              <Route path='/TeamSubmission' element={<TeamSubmission/>} /> 
               <Route path='/Reports' element={<Reports/>} /> 
               <Route path='/AccountSettings' element={<AccountSettings/>} /> 
               

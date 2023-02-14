@@ -79,7 +79,12 @@ const BasketballSystemDashboard = () => {
                         width: '80%',
                         marginLeft: '300px'
                     }}>
-      <div className={classes.accountSection}>
+      <div className={classes.accountSection} style={{ 
+                        position: 'absolute', 
+                        top: 0, 
+                        right: 0,
+                      
+                       }}>
         <Avatar className={classes.accountAvatar}>A</Avatar>
         <Typography variant="body1">Account Name</Typography>
         <IconButton onClick={handleClick}>
@@ -112,7 +117,7 @@ const BasketballSystemDashboard = () => {
       <Grid container spacing={2} style={{
                         
                         marginBottom: '14px',
-                        marginTop: '14px',
+                        marginTop: '100px',
                         width: '80%',
                         marginLeft: '50px'
                     }}>
@@ -126,7 +131,7 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-                View
+               <a href="teams">Wiew</a> 
               </Button>
             </CardActions>
           </Card>
@@ -141,6 +146,26 @@ const BasketballSystemDashboard = () => {
                 </Typography>
                 <Typography variant="body1">
                   Past: Feb 8, 5 PM - Warriors vs Suns
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions className={classes.cardActions}>
+              <Button size="small" color="primary">
+                <a href="schedule">View</a>
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item xs={14} sm={6}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h5">Team Standing</Typography>
+                <Typography variant="body1">
+                  
+                </Typography>
+                <Typography variant="body1">
+                  
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -166,7 +191,7 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-                View
+                <a href="events">View</a>
               </Button>
             </CardActions>
           </Card>

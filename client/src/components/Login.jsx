@@ -59,7 +59,7 @@ const Login = ({setAuth})=>{
                     window.location = "/AdminDash"
                     break;
                 case 'user':
-                    window.location = "/UserDash"
+                    window.location = "/TeamSubmission"
                     break;
                 default:
                     break;

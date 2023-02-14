@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { useNavigate } from 'react-router-dom';
 
 
 function AddPlayersModal({setter}) {
@@ -20,6 +21,14 @@ function AddPlayersModal({setter}) {
   const [phone, setPhone] = useState('');
   const [team_id, setTeamID] = useState('');
 
+  //back function to go back to previous page
+  
+  const navigate = useNavigate();
+  const handleBack = () => {
+    navigate('/teams');
+  };
+  
+//
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -41,8 +50,8 @@ function AddPlayersModal({setter}) {
             body: JSON.stringify(body)
             }
         )
-        const data = await response.json()
-            console.log('Success:', data)
+        const playerData = await response.json()
+            console.log('Success:', playerData)
     }catch(error) {
         console.log('Error:', error);
       }
@@ -53,6 +62,7 @@ function AddPlayersModal({setter}) {
   return (
     
     <div>
+      <Button onClick={handleBack}>Back</Button>
       <Button style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
@@ -145,15 +155,7 @@ function AddPlayersModal({setter}) {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
             />
-            {/* <TextField
-                margin="dense"
-                id="team_id"
-                label="Team ID"
-                type="number"
-                fullWidth
-                value={team_id}
-                onChange={(e) => setTeamID(e.target.value)}
-            /> */}
+            
           </form>
         </DialogContent>
         

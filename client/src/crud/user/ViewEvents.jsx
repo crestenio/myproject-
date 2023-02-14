@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SidebarAdmin from '../../components/SidebarAdmin';
+import SidebarUser from '../../components/SidebarUser';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,8 +9,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
+//import DeleteIcon from '@material-ui/icons/Delete';
+//import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '@material-ui/core/Fab';
 import Button from '@material-ui/core/Button';
@@ -19,7 +19,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
-import AddEvent from './AddEvent';
+// import AddEvent from './AddEvent';
 import { Snackbar } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -137,7 +137,7 @@ const EventTable = () => {
 
   return (
     <>
-    <SidebarAdmin/>
+    <SidebarUser/>
 
     <Snackbar 
       anchorOrigin={{
@@ -158,7 +158,7 @@ const EventTable = () => {
                         marginLeft: '100px'
                     }}>
       <h2>Basketball System Event Table</h2>
-      <AddEvent/>
+      
       </TableContainer>
       <TableContainer component={Paper} style={{
                         marginLeft: '100px'
@@ -170,7 +170,7 @@ const EventTable = () => {
               <TableCell >Event Title</TableCell>
               <TableCell >Event Venue</TableCell>
               <TableCell >Event Date and Time</TableCell>
-              <TableCell >Actions</TableCell>
+              {/* <TableCell >Actions</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -184,7 +184,7 @@ const EventTable = () => {
                 <TableCell >{event.venue}</TableCell>
                 <TableCell >{event.date_time}</TableCell>
                 
-                <TableCell>
+                {/* <TableCell>
                   <Fab style={{
                       marginRight: '22px'
                                       
@@ -204,7 +204,7 @@ const EventTable = () => {
                       onClick={() => deleteEvent(event.event_id)}>
                      <DeleteIcon />
                 </Fab>
-              </TableCell>
+              </TableCell> */}
             </TableRow>
           ))}
         </TableBody>

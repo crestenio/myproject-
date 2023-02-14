@@ -5,6 +5,7 @@ import {MdEmojiEvents} from 'react-icons/md';
 import {MdGroup} from 'react-icons/md';
 import {MdPublish} from 'react-icons/md';
 import {AiFillSchedule} from 'react-icons/ai';
+import {AiFillTrophy} from 'react-icons/ai';
 import {TbReportSearch} from 'react-icons/tb';
 //import DashboardContent from './DashboardContent';
 import {MdManageAccounts} from 'react-icons/md'
@@ -24,8 +25,21 @@ export const SidebarContentAdmin = [
     {
         title: "Teams",
         icon: <MdGroup />,
-        link: "./Teams"
+        subMenu: [
+            {  title: "View Teams",
+               link: "./teams"
+            },
+            {  title: "View Players",
+               link: "./Players"
+            },
+            {  title: "Team Standings",
+               link: "./TeamStandings"
+            }
+
+        ]
+          
     },
+            
     {
         title: "Schedule",
         icon: <AiFillSchedule />,

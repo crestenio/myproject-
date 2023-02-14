@@ -14,6 +14,10 @@ function SidebarUser () {
     return (
         <>
             <div className='Sidebar-container'>
+                <h2 style={{ 
+                            marginLeft: "22px",
+                            marginTop: "30px"
+                        }}> Sportsmatch</h2>
                 <ul className="Sidebar-list">
                     {SidebarContentUser.map((val, key) => { 
                     return (

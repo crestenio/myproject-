@@ -82,6 +82,9 @@ const PlayerTable = () => {
 
   const deletePlayer = async (rowID) => {
     console.log(rowID);
+
+    const confirmed = window.confirm("Are you sure you want to delete?");
+    if (confirmed) {
     const request = "http://localhost:8000/players/" +rowID;
    
     const response = await fetch(request, 
@@ -100,6 +103,7 @@ const PlayerTable = () => {
     } else {
       setMessage("Error deleting player!") 
         setOpen(true)
+      }
     }
   }
 

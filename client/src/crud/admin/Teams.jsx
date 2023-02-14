@@ -56,12 +56,15 @@ export default function BasketballSystemTable() {
     const teamData = await response.json();
     setListOfTeams(teamData);
     
-    
-    // for(let i=0; i<teamData.length; i++){
-    //   setTeamID(prevState => {
-    //     return {...prevState, teamData[i].team_id: 0};
-    //   });
-    // }
+  //   let myArray = teamData;
+  //   let arrayLength = myArray.length;
+  //   if (teamData && teamData.length > 0) {
+  //   setListOfTeams(teamData);
+
+  //     }else {
+  //   setListOfTeams([{ team_id: "", team_name: "", team_manager: "", playerData: [] }]);
+  //   }
+  // }
     
   }
   useEffect(() => {
@@ -100,6 +103,8 @@ export default function BasketballSystemTable() {
 
   const deleteTeam = async (rowID) => {
     console.log(rowID);
+    const confirmed = window.confirm("Are you sure you want to delete?");
+    if (confirmed){
     const request = "http://localhost:8000/teams/" + rowID;
    
     const response = await fetch(request, 
@@ -118,6 +123,7 @@ export default function BasketballSystemTable() {
     } else {
       setMessage("Error deleting team!") 
         setOpen(true)
+    }
     }
      
   }

@@ -6,6 +6,7 @@ import {MdGroup} from 'react-icons/md';
 import {MdPublish} from 'react-icons/md';
 import {AiFillSchedule} from 'react-icons/ai';
 import {TbReportSearch} from 'react-icons/tb';
+import {AiFillTrophy} from 'react-icons/ai';
 //import DashboardContent from './DashboardContent';
 import {MdManageAccounts} from 'react-icons/md'
 
@@ -19,23 +20,29 @@ export const SidebarContentUser = [
     {
         title: "Events",
         icon: <MdEmojiEvents />,
-        link: "./Events"
+        link: "./ViewEvents"
     },
-    {
-        title: "Teams",
-        icon: <MdGroup />,
-        link: "./Teams"
-    },
+    // {
+    //     title: "Teams",
+    //     icon: <MdGroup />,
+    //     link: "./Teams"
+    // },
     {
         title: "Schedule",
         icon: <AiFillSchedule />,
-        link: "./Schedule"
+        link: "./ViewSchedule"
     },
     {
         title: "Submission",
         icon: <MdPublish />,
-        link: "./Submission"
+        link: "./TeamSubmission"
     },
+    {
+        title: "Standing",
+        icon: <AiFillTrophy />,
+        link: "./TeamStanding"
+    }
+
 
     // {
     //     title: "Reports",

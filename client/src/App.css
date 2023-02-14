@@ -36,7 +36,7 @@ h2 {
 /* Login Register Page */
 .App {
   background: url(../src/components/images/basketball.png) no-repeat;
-  background-size: contain;
+  background-size: cover;
   background-position: center center;
   background-color: #fff;
   min-height: 100vh;
@@ -599,4 +599,41 @@ hr {
 #button-logout:hover {
   opacity: 0.8;
   background-color: red;
+}
+
+/*Teams SUB Menu items*/
+
+.sub-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid #ccc;
+  display: none;
+  position: absolute;
+  margin-left: 68px;
+  margin-top: 65px;
+}
+
+.Sidebar-list li:hover .sub-menu {
+  display: block;
+}
+
+.sub-menu li {
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #ccc;
+}
+
+.sub-menu li:last-child {
+  border-bottom: none;
+}
+
+.sub-menu a {
+  color: #333;
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+}
+
+.sub-menu a:hover {
+  background-color: #ddd;
 }

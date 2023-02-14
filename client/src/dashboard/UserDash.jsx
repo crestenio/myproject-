@@ -79,7 +79,12 @@ const BasketballSystemDashboard = () => {
                         width: '80%',
                         marginLeft: '300px'
                     }}>
-      <div className={classes.accountSection}>
+      <div className={classes.accountSection} style={{ 
+                        position: 'absolute', 
+                        top: 0, 
+                        right: 0,
+                      
+                       }}>
         <Avatar className={classes.accountAvatar}>A</Avatar>
         <Typography variant="body1">Account Name</Typography>
         <IconButton onClick={handleClick}>
