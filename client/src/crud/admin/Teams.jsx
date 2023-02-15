@@ -29,6 +29,7 @@ const useStyles = makeStyles({
 export default function BasketballSystemTable() {
   const classes = useStyles();
   const [listOfTeams, setListOfTeams] = useState([]);
+  
   //const [listOfTeamsWithPlayers, setListOfTeamsWithPlayers] = useState([]);
   //const [teamID, setTeamID] = useState({});
   const [editingTeams, setEditingTeams] = useState({
@@ -160,13 +161,24 @@ export default function BasketballSystemTable() {
   }, []);
 
 
-  
-    // const [searchText, setSearchText] = useState('');
-    // const teams = listOfTeams.filter(teamData =>
-    //   teamData.listOfTeams.toLowerCase().includes(searchText.toLowerCase())
-    // );
+  //Search bar code//
+    const [searchText, setSearchText] = useState('');
+    const handleSearch = (event) => {
+    const value = event.target? event.target.value : null;
+    setSearchText(value);
+    console.log(searchText);
+    };
     
-    // const [tableData, setTableData] = useState(teams);
+    const teams = listOfTeams && listOfTeams.length > 0
+  ? listOfTeams.filter(teamData => 
+      teamData.listOfTeams && teamData.listOfTeams.toLowerCase().includes(searchText.toLowerCase())
+    )
+  : [];
+
+  console.log(teams);
+
+ 
+    //const [tableData, setTableData] = useState(teams);
 
   const handleViewPlayers = (id) => {
     console.log(`View players for Team ID ${id}`);
@@ -201,15 +213,23 @@ export default function BasketballSystemTable() {
               marginTop: '14px',
               marginLeft: '100px'
         }}>
-          <h2>Basketball System Team Information</h2>
+          <h2 style={{
+                        backgroundColor: '#fff',
+                        marginBottom: '14px',
+                        marginTop: '18px',
+                        marginLeft: '14px',
+                        borderBottom: '2px solid #eb8045',
+                        width: '50%'
+                    }}>Basketball System Team Information</h2>
           <TextField style={{
-            width: '80%',
+            width: '50%',
             color: '#eb8045',
-            paddingLeft: '8px'
+            
+            marginLeft: '14px'
           }}
-            label="Search"
-            // value={searchText}
-            // onChange={e => setSearchText(e.target.value)}
+            label="Search here"
+             value={searchText}
+             onChange={e => handleSearch(e.target.value)}
           />
           <AddTeamModal />
         </TableContainer>
@@ -260,7 +280,7 @@ export default function BasketballSystemTable() {
                              onClick={() => deleteTeam(event.team_id)}>
                           <DeleteIcon />
                         </Fab>
-                        <Button style={{
+                        <Button className="addplayer-modal"style={{
                           backgroundColor: '#eb8045',
                           color: '#fff',
                         }}

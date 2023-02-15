@@ -208,6 +208,16 @@ app.get('/submission2', (req, res)=>{
     client.end;
 })
 
+app.get('/standings', (req, res)=>{
+    client.query(`Select * from standings`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
+
 
 //get queries via ID
 
@@ -268,6 +278,15 @@ app.get('/schedule/:schedule_id', (req, res)=>{
 
 app.get('/submission/:submission_id', (req, res)=>{
     client.query(`Select * from submission where submission_id=${req.params.submission_id}`, (err, result)=>{
+        if(!err){
+            res.send(result.rows);
+        }
+    });
+    client.end;
+})
+
+app.get('/standings/:standing_id', (req, res)=>{
+    client.query(`Select * from standings where standing_id=${req.params.standing_id}`, (err, result)=>{
         if(!err){
             res.send(result.rows);
         }
@@ -366,16 +385,19 @@ app.post('/players', (req, res)=> {
 client.end;
 
 app.post('/schedule', (req, res)=> {
-    const teamNames = req.body ["team_names"]
-    const Venue = req.body["venue"]
-    const dateTime = req.body["date_time"]
-    const userID = req.body["user_id"]
+    const scheduleData = req.body
+    // const teamA = req.body ["teamA"]
+    // const teamB = req.body ["teamB"]
+    // const venue = req.body["venue"]
+    // const dateTime = req.body["dateTime"]
+    // const userID = req.body["user_id"]
 
-    const insertQuery = `INSERT INTO schedule (team_names, venue, date_time, user_id) VALUES ('${teamNames}', '${Venue}', '${dateTime}', '${userID}');`
-    
+    const insertQuery = `INSERT INTO schedule ("teamA", "teamB", "venue", "date_time", "user_id") VALUES ('${scheduleData.teamA}', '${scheduleData.teamB}', '${scheduleData.scheduleVenue}', '${scheduleData.scheduleDate}', '${scheduleData.user_id}');`
+    //console.log(scheduleData.scheduleDate + "checking")
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")
         console.log(response)
+        console.log(req.body)
     })
     .catch((err) => {
         console.log(err)
@@ -392,6 +414,26 @@ app.post('/submission', (req, res)=> {
     const userID = req.body["user_id"]
 
     const insertQuery = `INSERT INTO submission (team_name, no_of_players, team_manager, user_id) VALUES ('${teamname}', '${0}', '${teammanager}', '${userID}');`
+    
+    client.query(insertQuery) .then((response) =>{
+        console.log("Data Saved")
+        console.log(response)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+    console.log(req.body);
+    res.send("Response Received: " + req.body);
+})
+client.end;
+
+app.post('/standings', (req, res)=> {
+    const teamName = req.body ["team_name"]
+    const wins = req.body["wins"]
+    const losses = req.body["losses"]
+    const teamID = req.body["team_id"]
+
+    const insertQuery = `INSERT INTO standings ("team_name", "wins", "losses", "team_id") VALUES ('${teamName}', '${0}', '${0}', '${teamID}');`
     
     client.query(insertQuery) .then((response) =>{
         console.log("Data Saved")
@@ -485,10 +527,28 @@ app.put('/players/:player_id', (req, res)=> {
 app.put('/schedule/:schedule_id', (req, res)=> {
     let schedule = req.body;
     let updateQuery = `update schedule
-                       set team_names = '${schedule.team_names}',
-                       venue = '${schedule.venue}',
-                       date_time = '${schedule.date_time}'
+                       set "teamA" = '${schedule.teamA}',
+                       "teamB" = '${schedule.teamB}',
+                       "venue" = '${schedule.venue}',
+                       "date_time" = '${schedule.date_time}'
                        where schedule_id = ${schedule.schedule_id}`
+
+    client.query(updateQuery, (err, result)=>{
+        if(!err){
+            res.send('Update was successful')
+        }
+        else{ console.log(err.message) }
+    })
+    client.end;
+})
+
+app.put('/standings/:standing_id', (req, res)=> {
+    let standing = req.body;
+    let updateQuery = `update standings
+                       set "team_name" = '${standing.team_name}',
+                       "wins" = '${standing.wins}',
+                       "losses" = '${standing.losses}'
+                       where standing_id = ${standing.standing_id}`
 
     client.query(updateQuery, (err, result)=>{
         if(!err){
@@ -564,6 +624,18 @@ app.delete('/schedule/:schedule_id', (req, res)=> {
 
 app.delete('/submission/:submission_id', (req, res)=> {
     let insertQuery = `delete from submission where submission_id=${req.params.submission_id}`
+
+    client.query(insertQuery, (err, result)=>{
+        if(!err){
+            res.send('Deletion was successful')
+        }
+        else{ console.log(err.message) }
+    })
+    client.end;
+})
+
+app.delete('/standings/:standing_id', (req, res)=> {
+    let insertQuery = `delete from standings where standing_id=${req.params.standing_id}`
 
     client.query(insertQuery, (err, result)=>{
         if(!err){

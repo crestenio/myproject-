@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { useNavigate } from 'react-router-dom';
-
+//import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function AddPlayersModal({setter}) {
   const [open, setOpen] = useState(false);
@@ -62,13 +62,14 @@ function AddPlayersModal({setter}) {
   return (
     
     <div>
-      <Button onClick={handleBack}>Back</Button>
-      <Button style={{
+      
+      <Button className="player-modal" style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginBottom: '22px',
                         marginTop: '18px',
-                        marginLeft: '6px'
+                        marginLeft: '14px'
+                        
                     }}  color="primary" onClick={handleClickOpen}>
         Add Players
       </Button>

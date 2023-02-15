@@ -637,3 +637,28 @@ hr {
 .sub-menu a:hover {
   background-color: #ddd;
 }
+
+/*Modal Buttons*/
+
+.schedule-modal:hover {
+  opacity: 0.6;
+}
+
+.team-modal:hover {
+  opacity: 0.6;
+}
+
+.player-modal:hover {
+  opacity: 0.6;
+}
+
+.submission-modal:hover {
+  opacity: 0.6;
+}
+
+.event-modal:hover {
+  opacity: 0.6;
+}
+.addplayer-modal:hover {
+  opacity: 0.6;
+}

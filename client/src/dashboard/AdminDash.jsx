@@ -131,7 +131,7 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-               <a href="teams">Wiew</a> 
+               <a href="teams">View</a> 
               </Button>
             </CardActions>
           </Card>

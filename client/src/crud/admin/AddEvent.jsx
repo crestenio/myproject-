@@ -56,12 +56,13 @@ function AddEventModal() {
     <>
     
     <div>
-      <Button style={{
+      <Button className="event-modal" style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginTop: '18px',
                         marginBottom: '22px',
-                        marginLeft: '6px'
+                        marginLeft: '14px'
+                        
                     }}  color="primary" onClick={handleClickOpen}>
         Add Event
       </Button>

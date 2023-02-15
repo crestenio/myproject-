@@ -50,12 +50,13 @@ function AddSubmissionModal() {
   return (
     
     <div>
-      <Button style={{
+      <Button className="submission-modal" style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginBottom: '22px',
                         marginTop: '18px',
-                        marginLeft: '6px'
+                        marginLeft: '14px'
+                        
                     }}  color="primary" onClick={handleClickOpen}>
         Submit Your Team
       </Button>

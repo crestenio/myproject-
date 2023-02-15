@@ -33,7 +33,7 @@ export const SidebarContentAdmin = [
                link: "./Players"
             },
             {  title: "Team Standings",
-               link: "./TeamStandings"
+               link: "./Standings"
             }
 
         ]

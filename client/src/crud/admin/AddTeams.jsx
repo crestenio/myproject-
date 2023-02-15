@@ -6,8 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import AddPlayersModal from './AddPlayers';
-import {useNavigate} from 'react-router-dom';
+
+
 
 function AddTeamModal() {
   const [open, setOpen] = useState(false);
@@ -54,12 +54,13 @@ function AddTeamModal() {
   return (
     <div>
       
-      <Button style={{
+      <Button className="team-modal" style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
                         marginBottom: '22px',
                         marginTop: '18px',
-                        marginLeft: '6px'
+                        marginLeft: '14px'
+                        
                     }}  color="primary" onClick={handleClickOpen}>
         Add Team
       </Button>

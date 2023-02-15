@@ -90,7 +90,14 @@ export default function SubmissionTable() {
                         marginTop: '18px',
                         marginLeft: '100px'
                     }}>
-      <h2>Basketball System Event Submission</h2>
+      <h2 style={{
+                        backgroundColor: '#fff',
+                        marginBottom: '14px',
+                        marginTop: '18px',
+                        marginLeft: '14px',
+                        borderBottom: '2px solid #eb8045',
+                        width: '50%'
+                    }}>Basketball System Event Submission</h2>
       <AddSubmissionModal/>
       </TableContainer>
     <TableContainer component={Paper} style={{
@@ -143,7 +150,7 @@ export default function SubmissionTable() {
                         color="primary"
                         onClick={() => handleViewPlayers(row.team_id)}
                       >
-                        <a href="players" style={{
+                        <a href="ViewPlayers" style={{
                             backgroundColor: '#eb8045',
                             color: '#fff',
                           }}>View Players</a>

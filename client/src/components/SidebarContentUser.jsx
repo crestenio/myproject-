@@ -40,7 +40,7 @@ export const SidebarContentUser = [
     {
         title: "Standing",
         icon: <AiFillTrophy />,
-        link: "./TeamStanding"
+        link: "./ViewStandings"
     }
 
 

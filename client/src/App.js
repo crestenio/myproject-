@@ -15,6 +15,7 @@ import Events from './crud/admin/Events';
 import ViewEvents from './crud/user/ViewEvents';
 import Teams from './crud/admin/Teams';
 import Players from './crud/admin/Players';
+import ViewPlayers from './crud/user/ViewPlayers';
 import Schedule from './crud/admin/Schedule';
 import ViewSchedule from './crud/user/ViewSchedule';
 import Submission from './crud/admin/Submission';
@@ -28,6 +29,8 @@ import Signup from './components/Signup';
 import Footer from './pages/Footer';
 import FAQ from './pages/FAQ';
 import Reports from './crud/admin/Reports';
+import Standings from './crud/admin/Standings';
+import ViewStandings from './crud/user/ViewStandings';
 import AccountSettings from './components/AccountSettings';
 
 
@@ -78,10 +81,13 @@ function App() {
               <Route path='/ViewEvents' element={<ViewEvents/>} />
               <Route path='/Teams' element={<Teams/>} />
               <Route path='/Players' element={<Players/>} />
+              <Route path='/ViewPlayers' element={<ViewPlayers/>} />
               <Route path='/Schedule' element={<Schedule/>} />
               <Route path='/ViewSchedule' element={<ViewSchedule/>} />
               <Route path='/Submission' element={<Submission/>} /> 
               <Route path='/TeamSubmission' element={<TeamSubmission/>} /> 
+              <Route path='/Standings' element={<Standings/>} /> 
+              <Route path='/ViewStandings' element={<ViewStandings/>} /> 
               <Route path='/Reports' element={<Reports/>} /> 
               <Route path='/AccountSettings' element={<AccountSettings/>} /> 
               

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import SidebarAdmin from '../../components/SidebarAdmin';
+import SidebarUser from '../../components/SidebarUser';
 import AddPlayersModal from '../admin/AddPlayers';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -170,7 +170,7 @@ const PlayerTable = () => {
                         width: '80%',
                         marginLeft: '240px'
                     }}>
-        <SidebarAdmin/>
+        <SidebarUser/>
         <h2 style={{
                         backgroundColor: '#fff',
                         marginBottom: '14px',
