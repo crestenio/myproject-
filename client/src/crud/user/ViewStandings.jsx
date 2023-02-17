@@ -58,8 +58,8 @@ const StandingsTable = () => {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Team Standings </h2>
+                        width: '25%'
+                    }}>Team Standings </h2>
       
       </TableContainer>
       <TableContainer component={Paper} style={{

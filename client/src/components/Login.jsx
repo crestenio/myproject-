@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Grid,Paper, Avatar, TextField, Button,Link } from '@material-ui/core'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -59,7 +58,7 @@ const Login = ({setAuth})=>{
                     window.location = "/AdminDash"
                     break;
                 case 'user':
-                    window.location = "/TeamSubmission"
+                    window.location = "/UserDash"
                     break;
                 default:
                     break;

@@ -19,6 +19,11 @@ h2 {
   padding-bottom: 20px;
 }
 
+h5 {
+  color: #eb8045;
+  padding-bottom: 20px;
+}
+
 @media screen and (min-width: 600px) {
   .auth-form-container {
     padding: 2rem;
@@ -226,7 +231,7 @@ button:hover {
 
 nav a h1 {
   width: 150px;
-  margin-left: 30px;
+  margin-left: 65px;
   color: #eb8045;
   font-weight: 700;
   text-decoration: none;
@@ -244,6 +249,7 @@ nav ul li a {
   outline: none;
   color: #eb8045;
   text-decoration: none;
+  font-size: 18px;
 }
 
 nav ul li:hover {
@@ -257,7 +263,7 @@ nav ul a button.btn-sign {
   margin-bottom: 18px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #eb8045;
   color: #fff;
   margin-top: auto;
@@ -289,7 +295,7 @@ nav ul a button.btn-sign {
 
 .header-content h1 {
   font-weight: 700;
-  font-size: 45px;
+  font-size: 50px;
   line-height: 20px;
   margin: 0 0 20px;
   padding-bottom: 8px;
@@ -298,7 +304,7 @@ nav ul a button.btn-sign {
 }
 .header-content h2 {
   font-style: italic;
-  font-size: 14px;
+  font-size: 18px;
   color: #fff;
   padding-left: 30px;
 }
@@ -306,7 +312,7 @@ nav ul a button.btn-sign {
 .header-content p {
   text-align: left;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 20px;
   color: #fff;
   padding-left: 30px;
@@ -323,7 +329,7 @@ nav ul a button.btn-sign {
   border: none;
   padding: 10px 24px 10px 24px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   background-color: #eb8045;
   color: #fff;
   margin-left: 35px;

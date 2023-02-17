@@ -177,8 +177,8 @@ const PlayerTable = () => {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Players Information</h2>
+                        width: '30%'
+                    }}>Team Players Information</h2>
         <AddPlayersModal />
       </TableContainer>
       

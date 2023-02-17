@@ -96,8 +96,8 @@ export default function SubmissionTable() {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Event Submission</h2>
+                        width: '30%'
+                    }}>Team Submission</h2>
       <AddSubmissionModal/>
       </TableContainer>
     <TableContainer component={Paper} style={{
@@ -123,7 +123,7 @@ export default function SubmissionTable() {
               <TableCell align="center">{row.team_manager}</TableCell>
               <TableCell align="center">{row.numofplayers}</TableCell>
               <TableCell align="center">
-                <Fab
+                {/* <Fab
                   size="small"
                   color="primary"
                   className={classes.fab}
@@ -138,7 +138,7 @@ export default function SubmissionTable() {
                   aria-label="delete"
                   onClick={() => deleteSubmission(row.submission_id)}>
                  <DeleteIcon />
-                </Fab>
+                </Fab> */}
                 <Button style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',

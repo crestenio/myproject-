@@ -96,8 +96,8 @@ export default function SubmissionTable() {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Event Submission</h2>
+                        width: '30%'
+                    }}>Team Submission</h2>
       <AddSubmissionModal/>
       </TableContainer>
     <TableContainer component={Paper} style={{

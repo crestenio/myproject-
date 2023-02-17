@@ -219,10 +219,10 @@ export default function BasketballSystemTable() {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Team Information</h2>
+                        width: '30%'
+                    }}>Team Information</h2>
           <TextField style={{
-            width: '50%',
+            width: '30%',
             color: '#eb8045',
             
             marginLeft: '14px'

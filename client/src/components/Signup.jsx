@@ -13,7 +13,8 @@ const Signup = ({setAuth}) => {
         firstname: "",
         lastname: "",
         username: "",
-        password: ""
+        password: "",
+        confirm_password: "",
         
         
     })
@@ -27,17 +28,31 @@ const Signup = ({setAuth}) => {
 
     // const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+    //check if password match
+    const [passwordsMatch, setPasswordsMatch] = useState(true);
+    const [errorMessage, setErrorMessage] = useState('');
+
     const onChange = (e) => {    //username     : barney   
         setInputs({...inputs, [e.target.name] : e.target.value})
     }
 
-    const { firstname, lastname, username, password } = inputs
+    const { firstname, lastname, username, password, confirm_password } = inputs
 
     const onSubmitForm = async (e) => {
         e.preventDefault()
+        if (password !== confirm_password) {
+            setPasswordsMatch(false)
+            setErrorMessage("Passwords do not match");
+            return;
+        } else {
+            setPasswordsMatch(true)
+            setErrorMessage("");
+        }
+
+
         try {
             //making a body object from the values of username and password
-            const body = { firstname, lastname, username, password }
+            const body = { firstname, lastname, username, password, confirm_password }
 
             //fetch api for POST method
             const response = await fetch(
@@ -91,19 +106,14 @@ const Signup = ({setAuth}) => {
                         onChange={e => onChange(e)}  required />
                     <TextField fullWidth label='Username' name="username" placeholder="Enter your email" value={username}
                         onChange={e => onChange(e)}  required />
-                    {/* <FormControl component="fieldset" style={marginTop}>
-                        <FormLabel component="legend">Gender</FormLabel>
-                        <RadioGroup aria-label="gender" name="gender" style={{ display: 'initial' }}>
-                            <FormControlLabel value="female" control={<Radio />} label="Female" />
-                            <FormControlLabel value="male" control={<Radio />} label="Male" />
-                        </RadioGroup>
-                    </FormControl> */}
+                    
                     <TextField fullWidth label='Password' type = "password" name="password" value={password}
                         placeholder="********" 
-                        onChange={e => onChange(e)} />
-                    <TextField fullWidth label='Confirm Password' type = "password" name="password" value={password}
+                        onChange={e => onChange(e)} required />
+                    <TextField fullWidth label='Confirm Password' type = "password" name="confirm_password" value={confirm_password}
                         placeholder="********" 
-                        onChange={e => onChange(e)} />
+                        onChange={e => onChange(e)} required  error={Boolean(errorMessage)}
+                        helperText={errorMessage}/>
                     
                     <FormControlLabel
                         control={<Checkbox name="checkedA" />}

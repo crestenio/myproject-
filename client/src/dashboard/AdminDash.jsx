@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SidebarAdmin from '../components/SidebarAdmin';
 import {
   Card,
@@ -15,6 +15,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Paper
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -39,6 +40,7 @@ const useStyles = makeStyles({
   accountSection: {
     display: "flex",
     alignItems: "center",
+    justifyContent: "flex-end",
     padding: 20,
   },
   accountAvatar: {
@@ -48,7 +50,8 @@ const useStyles = makeStyles({
 
 const BasketballSystemDashboard = () => {
   const classes = useStyles();
-  const [teamsSubmitted, setTeamsSubmitted] = useState(0);
+  const [teamsSubmitted, setTeamsSubmitted] = useState();
+  const [listOfEvents, setListOfEvents] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -67,17 +70,44 @@ const BasketballSystemDashboard = () => {
         localStorage.removeItem('user.user_id')
         window.location = "/"
     }
+
+    useEffect(() => {
+    fetch("http://localhost:8000/count-teams1/")
+      .then(response => response.json())
+      .then(data => setTeamsSubmitted(data.totalTeams))
+  }, [])
+
+
+  const getEvents = async (e) => {
+    const request = "http://localhost:8000/events/"
+    
+    const response = await fetch(request, 
+        {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        }
+    )
+    const eventData = await response.json();
+    setListOfEvents(eventData);
+
+  }
+  useEffect(() => {
+    getEvents();
+  }, []);
     
 
   return (
     <>
     <SidebarAdmin/>
-    <div className={classes.root} style={{
+    <Grid component={Paper} className={classes.root} style={{
                         
                         marginBottom: '14px',
                         marginTop: '18px',
-                        width: '80%',
+                        width: '70%',
                         marginLeft: '300px'
+                      
                     }}>
       <div className={classes.accountSection} style={{ 
                         position: 'absolute', 
@@ -86,7 +116,7 @@ const BasketballSystemDashboard = () => {
                       
                        }}>
         <Avatar className={classes.accountAvatar}>A</Avatar>
-        <Typography variant="body1">Account Name</Typography>
+        <Typography variant="body1">Admin</Typography>
         <IconButton onClick={handleClick}>
           <SettingsIcon />
         </IconButton>
@@ -114,12 +144,12 @@ const BasketballSystemDashboard = () => {
           </List>
         </Popover>
       </div>
-      <Grid container spacing={2} style={{
+      <Grid  container spacing={2} style={{
                         
                         marginBottom: '14px',
                         marginTop: '100px',
-                        width: '80%',
-                        marginLeft: '50px'
+                         width: '100%',
+                    
                     }}>
         <Grid item xs={14} sm={6}>
           <Card className={classes.card}>
@@ -136,26 +166,7 @@ const BasketballSystemDashboard = () => {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={14} sm={6}>
-          <Card className={classes.card}>
-            <CardActionArea>
-              <CardContent className={classes.cardContent}>
-                <Typography variant="h5">Past and Upcoming Schedule</Typography>
-                <Typography variant="body1">
-                  Upcoming: Feb 10, 7 PM - Lakers vs Clippers
-                </Typography>
-                <Typography variant="body1">
-                  Past: Feb 8, 5 PM - Warriors vs Suns
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions className={classes.cardActions}>
-              <Button size="small" color="primary">
-                <a href="schedule">View</a>
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
+        
         <Grid item xs={14} sm={6}>
           <Card className={classes.card}>
             <CardActionArea>
@@ -171,22 +182,38 @@ const BasketballSystemDashboard = () => {
             </CardActionArea>
             <CardActions className={classes.cardActions}>
               <Button size="small" color="primary">
-                View
+                <a href="standings">View</a>
               </Button>
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={14} sm={6}>
+          <Card className={classes.card}>
+            <CardActionArea>
+              <CardContent className={classes.cardContent}>
+                <Typography variant="h5">Past and Upcoming Schedule</Typography>
+                <Typography variant="body1">
+                  Upcoming: Feb 10, 7:30 PM Purok 2 VS Purok 3
+                </Typography>
+            
+              </CardContent>
+            </CardActionArea>
+            <CardActions className={classes.cardActions}>
+              <Button size="small" color="primary">
+                <a href="schedule">View</a>
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item xs={14} sm={6}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardContent className={classes.cardContent}>
                 <Typography variant="h5">Event Announcements</Typography>
                 <Typography variant="body1">
-                  Feb 12, All-Star Game at the Staples Center
+                  One-Day League Tournament
                 </Typography>
-                <Typography variant="body1">
-                  Feb 15, Free throw competition at the Lakers practice facility
-                </Typography>
+                
               </CardContent>
             </CardActionArea>
             <CardActions className={classes.cardActions}>
@@ -197,7 +224,7 @@ const BasketballSystemDashboard = () => {
           </Card>
         </Grid>
       </Grid>
-    </div>
+    </Grid>
     </>
   );
 };

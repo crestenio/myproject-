@@ -15,6 +15,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  Paper
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -72,12 +73,13 @@ const BasketballSystemDashboard = () => {
   return (
     <>
     <SidebarUser/>
-    <div className={classes.root} style={{
+    <Grid component={Paper} className={classes.root} style={{
                         
                         marginBottom: '14px',
                         marginTop: '18px',
-                        width: '80%',
+                        width: '70%',
                         marginLeft: '300px'
+                      
                     }}>
       <div className={classes.accountSection} style={{ 
                         position: 'absolute', 
@@ -142,10 +144,10 @@ const BasketballSystemDashboard = () => {
               <CardContent className={classes.cardContent}>
                 <Typography variant="h5">Past and Upcoming Schedule</Typography>
                 <Typography variant="body1">
-                  Upcoming: Feb 10, 7 PM - Lakers vs Clippers
+                  Upcoming: Feb 25, 7 PM - Purok 1 VS Purok 6
                 </Typography>
                 <Typography variant="body1">
-                  Past: Feb 8, 5 PM - Warriors vs Suns
+                  Past: Feb 8, 5 PM - SK VS Purok 2
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -162,10 +164,10 @@ const BasketballSystemDashboard = () => {
               <CardContent className={classes.cardContent}>
                 <Typography variant="h5">Event Announcements</Typography>
                 <Typography variant="body1">
-                  Feb 12, All-Star Game at the Staples Center
+                  May 15, 2023 One-day League Tournament
                 </Typography>
                 <Typography variant="body1">
-                  Feb 15, Free throw competition at the Lakers practice facility
+                  May 14, 2023 3-Point Contest
                 </Typography>
               </CardContent>
             </CardActionArea>
@@ -177,7 +179,7 @@ const BasketballSystemDashboard = () => {
           </Card>
         </Grid>
       </Grid>
-    </div>
+    </Grid>
     </>
   );
 };

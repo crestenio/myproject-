@@ -164,7 +164,7 @@ const EventTable = () => {
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
                         width: '50%'
-                    }}>Basketball System Event Table</h2>
+                    }}>Basketball Event Announcements</h2>
       
       </TableContainer>
       <TableContainer component={Paper} style={{

@@ -160,8 +160,8 @@ export default function ScheduleTable() {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Event Schedule</h2>
+                        width: '25%'
+                    }}>Game Schedule</h2>
           <AddScheduleModal/>
           </TableContainer>
         <TableContainer component={Paper} style={{

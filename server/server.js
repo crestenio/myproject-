@@ -171,6 +171,16 @@ app.get('/teams2', (req, res)=>{
     client.end;
 })
 
+// get the total counts of team submitted
+app.get('/count-teams1', async (req, res) => {
+    try {
+        const count = await client.query('SELECT COUNT(team_id) FROM teams');
+        res.json(count.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 app.get('/players', (req, res)=>{
     client.query(`Select * from players`, (err, result)=>{
         if(!err){

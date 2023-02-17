@@ -60,6 +60,37 @@ const StandingsTable = () => {
     getStandings();
   }, []);
   
+  const updateStandings = async () => {
+    const request = "http://localhost:8000/schedule/";
+    const response = await fetch(request);
+    const gamesData = await response.json();
+
+    const newStandings = listOfStandings.map((standing) => {
+      const wins = gamesData.filter(
+        (game) =>
+          (game.home_team === standing.team_name &&
+            game.home_team_score > game.away_team_score) ||
+          (game.away_team === standing.team_name &&
+            game.away_team_score > game.home_team_score)
+      ).length;
+      const losses = gamesData.filter(
+        (game) =>
+          (game.home_team === standing.team_name &&
+            game.home_team_score < game.away_team_score) ||
+          (game.away_team === standing.team_name &&
+            game.away_team_score < game.home_team_score)
+      ).length;
+      return { ...standing, wins, losses };
+    });
+
+    setListOfStandings(newStandings);
+  };
+
+  useEffect(() => {
+    updateStandings();
+  }, []);
+  
+  // ...
 
     //wITHToastify//
 
@@ -163,8 +194,8 @@ const StandingsTable = () => {
                         marginTop: '18px',
                         marginLeft: '14px',
                         borderBottom: '2px solid #eb8045',
-                        width: '50%'
-                    }}>Basketball System Team Standings </h2>
+                        width: '20%'
+                    }}> Team Standings </h2>
       
       </TableContainer>
       <TableContainer component={Paper} style={{
