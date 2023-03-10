@@ -23,7 +23,7 @@ function SidebarAdmin() {
                             marginLeft: "22px",
                             marginTop: "30px",
                         
-                        }}>Sportsmatch</h2>
+                        }}>BballPro</h2>
                 <ul className="Sidebar-list">
                     {SidebarContentAdmin.map((item, index) => {
                     return (

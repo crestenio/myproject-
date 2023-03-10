@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SidebarUser from '../../components/SidebarUser';
-import AddPlayersModal from '../admin/AddPlayers';
+import AddTeamPlayersModal from '../user/AddTeamPlayers';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -179,7 +179,7 @@ const PlayerTable = () => {
                         borderBottom: '2px solid #eb8045',
                         width: '50%'
                     }}>Team Players Information</h2>
-        <AddPlayersModal />
+        <AddTeamPlayersModal />
       </TableContainer>
       
     <TableContainer component={Paper} style={{ width: '80%',

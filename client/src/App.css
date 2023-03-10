@@ -333,6 +333,7 @@ nav ul a button.btn-sign {
   background-color: #eb8045;
   color: #fff;
   margin-left: 35px;
+  margin-bottom: 30px;
   border-radius: 5px;
 }
 
@@ -667,4 +668,8 @@ hr {
 }
 .addplayer-modal:hover {
   opacity: 0.6;
+}
+
+.info-card-row {
+  color: #000;
 }

@@ -6,8 +6,9 @@ const LogoutButton = () => {
 
   const handleLogout = () => {
     console.log("Logout button clicked");
+    console.log(localStorage.getItem('token'))
     // Perform logout logic (e.g. clear session, destroy token)
-        localStorage.removeItem('user.token')
+        localStorage.removeItem('token')
         localStorage.removeItem('user.user_id')
         window.location = "/"
 

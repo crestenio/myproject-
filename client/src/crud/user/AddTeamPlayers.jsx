@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-function AddPlayersModal({setter}) {
+function AddTeamPlayersModal({setter}) {
   const [open, setOpen] = useState(false);
   const [firstname, setFirstName] = useState('');
   const [lastname, setLastName] = useState('');
@@ -25,7 +25,7 @@ function AddPlayersModal({setter}) {
   
   const navigate = useNavigate();
   const handleBack = () => {
-    navigate('/teams');
+    navigate('/TeamSubmission');
   };
   
 //
@@ -62,7 +62,7 @@ function AddPlayersModal({setter}) {
   return (
     
     <div>
-      <Button onClick={handleBack}><ArrowBackIcon />Teams</Button>
+      <Button onClick={handleBack}><ArrowBackIcon />Back</Button>
       <Button className="player-modal" style={{
                         backgroundColor: '#eb8045',
                         color: '#fff',
@@ -175,4 +175,4 @@ function AddPlayersModal({setter}) {
   );
 }
 
-export default AddPlayersModal;
+export default AddTeamPlayersModal;

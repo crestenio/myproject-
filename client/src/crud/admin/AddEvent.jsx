@@ -10,9 +10,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 function AddEventModal() {
   const [open, setOpen] = useState(false);
   const [eventName, setEventName] = useState('');
+  const [eventVenue, setEventVenue] = useState('');
   const [eventDate, setEventDate] = useState('');
   const [eventTime, setEventTime] = useState('');
-  const [eventVenue, setEventVenue] = useState('');
   const [userID, setUserID] = useState('');
  
   
@@ -84,6 +84,15 @@ function AddEventModal() {
           />
           <TextField
             margin="dense"
+            id="venue"
+            label="Event Venue"
+            type="text"
+            fullWidth
+            value={eventVenue}
+            onChange={(e) => setEventVenue(e.target.value)}
+          />
+          <TextField
+            margin="dense"
             id="date"
             label="Event Date"
             type="date"
@@ -97,15 +106,7 @@ function AddEventModal() {
           value={eventTime}
           onChange={(e) => setEventTime(e.target.value)}
         />
-          <TextField
-            margin="dense"
-            id="venue"
-            label="Event Venue"
-            type="text"
-            fullWidth
-            value={eventVenue}
-            onChange={(e) => setEventVenue(e.target.value)}
-          />
+          
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

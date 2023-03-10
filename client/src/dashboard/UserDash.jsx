@@ -64,8 +64,8 @@ const BasketballSystemDashboard = () => {
   const id = open ? "simple-popover" : undefined;
 
   const handleLogout = () => {
-        localStorage.removeItem('user.token')
-        localStorage.removeItem('user.user_id')
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
         window.location = "/"
     }
     

@@ -66,20 +66,13 @@ const BasketballSystemDashboard = () => {
   const id = open ? "simple-popover" : undefined;
 
   const handleLogout = () => {
-        localStorage.removeItem('user.token')
-        localStorage.removeItem('user.user_id')
+        localStorage.removeItem('token')
+        localStorage.removeItem('user_id')
         window.location = "/"
     }
 
-    useEffect(() => {
-    fetch("http://localhost:8000/count-teams1/")
-      .then(response => response.json())
-      .then(data => setTeamsSubmitted(data.totalTeams))
-  }, [])
-
-
-  const getEvents = async (e) => {
-    const request = "http://localhost:8000/events/"
+   const getTotalTeams = async (e) => {
+    const request = "http://localhost:8000/count-teams1/"
     
     const response = await fetch(request, 
         {
@@ -89,12 +82,29 @@ const BasketballSystemDashboard = () => {
         }
         }
     )
-    const eventData = await response.json();
-    setListOfEvents(eventData);
+    const totalTeams = await response.json();
+    setTeamsSubmitted(totalTeams);
 
   }
+
+
+  // const getEvents = async (e) => {
+  //   const request = "http://localhost:8000/events/"
+    
+  //   const response = await fetch(request, 
+  //       {
+  //       method: 'GET',
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       }
+  //       }
+  //   )
+  //   const eventData = await response.json();
+  //   setListOfEvents(eventData);
+
+  // }
   useEffect(() => {
-    getEvents();
+    getTotalTeams();
   }, []);
     
 
@@ -151,21 +161,21 @@ const BasketballSystemDashboard = () => {
                          width: '100%',
                     
                     }}>
-        <Grid item xs={14} sm={6}>
-          <Card className={classes.card}>
-            <CardActionArea>
-              <CardContent className={classes.cardContent}>
-                <Typography variant="h5">Total Teams Submitted</Typography>
-                <Typography variant="body1">{teamsSubmitted}</Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions className={classes.cardActions}>
-              <Button size="small" color="primary">
-               <a href="teams">View</a> 
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
+        <Grid item xs={12} sm={6}>
+        <Card className={classes.card}>
+          <CardActionArea>
+            <CardContent className={classes.cardContent}>
+              <Typography variant="h5">Total Teams Submitted</Typography>
+              <Typography variant="body1">{teamsSubmitted} Teams</Typography>
+            </CardContent>
+          </CardActionArea>
+          <CardActions className={classes.cardActions}>
+            <Button size="small" color="primary">
+             <a href="teams">View</a> 
+            </Button>
+          </CardActions>
+        </Card>
+      </Grid>
         
         <Grid item xs={14} sm={6}>
           <Card className={classes.card}>
@@ -192,8 +202,7 @@ const BasketballSystemDashboard = () => {
             <CardActionArea>
               <CardContent className={classes.cardContent}>
                 <Typography variant="h5">Past and Upcoming Schedule</Typography>
-                <Typography variant="body1">
-                  Upcoming: Feb 10, 7:30 PM Purok 2 VS Purok 3
+                <Typography variant="body1">{listOfEvents}
                 </Typography>
             
               </CardContent>
